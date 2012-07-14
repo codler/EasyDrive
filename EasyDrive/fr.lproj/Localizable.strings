@@ -1,0 +1,19 @@
+/* 
+  Localizable.strings
+  EasyDrive
+
+  Created by Matthieu Riegler on 14/07/12.
+  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+*/
+
+"Preferences" = "Préférences";
+"About"    = "À propos d'EasyDrive";
+"Cancel"      = "Annuler";
+"Quit"     = "Quitter EasyDrive"; 
+"Open"        = "Ouvrir";
+"Mount"       = "Monter";
+"Unmount"     = "Éjecter"; 
+
+"AXMessageText" = "Veuillez activer l'accès pour les périphériques d'aide";
+"AXInformativeText" = "Preferences Système > Accessibilité"; 
+"AXOpen" = "Ouvrir Accessibilité";
