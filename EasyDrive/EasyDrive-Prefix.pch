@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'EasyDrive' target in the 'EasyDrive' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif

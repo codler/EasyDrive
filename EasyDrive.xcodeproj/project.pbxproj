@@ -1,0 +1,295 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4A96097315B116FE00E4B36F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A96097215B116FE00E4B36F /* Cocoa.framework */; };
+		4A96097D15B116FE00E4B36F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A96097B15B116FE00E4B36F /* InfoPlist.strings */; };
+		4A96097F15B116FE00E4B36F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A96097E15B116FE00E4B36F /* main.m */; };
+		4A96098315B116FE00E4B36F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 4A96098115B116FE00E4B36F /* Credits.rtf */; };
+		4A96098615B116FE00E4B36F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A96098515B116FE00E4B36F /* AppDelegate.m */; };
+		4A96098915B116FE00E4B36F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A96098715B116FE00E4B36F /* MainMenu.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		4A96096E15B116FE00E4B36F /* EasyDrive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyDrive.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A96097215B116FE00E4B36F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		4A96097515B116FE00E4B36F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		4A96097615B116FE00E4B36F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		4A96097715B116FE00E4B36F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		4A96097A15B116FE00E4B36F /* EasyDrive-Info.plist */ = {isa = PBXFileReference; path = "EasyDrive-Info.plist"; sourceTree = "<group>"; };
+		4A96097C15B116FE00E4B36F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4A96097E15B116FE00E4B36F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4A96098015B116FE00E4B36F /* EasyDrive-Prefix.pch */ = {isa = PBXFileReference; path = "EasyDrive-Prefix.pch"; sourceTree = "<group>"; };
+		4A96098215B116FE00E4B36F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		4A96098415B116FE00E4B36F /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		4A96098515B116FE00E4B36F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		4A96098815B116FE00E4B36F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4A96096B15B116FE00E4B36F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A96097315B116FE00E4B36F /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4A96096315B116FE00E4B36F = {
+			isa = PBXGroup;
+			children = (
+				4A96097815B116FE00E4B36F /* EasyDrive */,
+				4A96097115B116FE00E4B36F /* Frameworks */,
+				4A96096F15B116FE00E4B36F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4A96096F15B116FE00E4B36F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4A96096E15B116FE00E4B36F /* EasyDrive.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4A96097115B116FE00E4B36F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4A96097215B116FE00E4B36F /* Cocoa.framework */,
+				4A96097415B116FE00E4B36F /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4A96097415B116FE00E4B36F /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4A96097515B116FE00E4B36F /* AppKit.framework */,
+				4A96097615B116FE00E4B36F /* CoreData.framework */,
+				4A96097715B116FE00E4B36F /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		4A96097815B116FE00E4B36F /* EasyDrive */ = {
+			isa = PBXGroup;
+			children = (
+				4A96098415B116FE00E4B36F /* AppDelegate.h */,
+				4A96098515B116FE00E4B36F /* AppDelegate.m */,
+				4A96098715B116FE00E4B36F /* MainMenu.xib */,
+				4A96097915B116FE00E4B36F /* Supporting Files */,
+			);
+			path = EasyDrive;
+			sourceTree = "<group>";
+		};
+		4A96097915B116FE00E4B36F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4A96097A15B116FE00E4B36F /* EasyDrive-Info.plist */,
+				4A96097B15B116FE00E4B36F /* InfoPlist.strings */,
+				4A96097E15B116FE00E4B36F /* main.m */,
+				4A96098015B116FE00E4B36F /* EasyDrive-Prefix.pch */,
+				4A96098115B116FE00E4B36F /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4A96096D15B116FE00E4B36F /* EasyDrive */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4A96098C15B116FF00E4B36F /* Build configuration list for PBXNativeTarget "EasyDrive" */;
+			buildPhases = (
+				4A96096A15B116FE00E4B36F /* Sources */,
+				4A96096B15B116FE00E4B36F /* Frameworks */,
+				4A96096C15B116FE00E4B36F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EasyDrive;
+			productName = EasyDrive;
+			productReference = 4A96096E15B116FE00E4B36F /* EasyDrive.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4A96096515B116FE00E4B36F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = 4A96096815B116FE00E4B36F /* Build configuration list for PBXProject "EasyDrive" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 4A96096315B116FE00E4B36F;
+			productRefGroup = 4A96096F15B116FE00E4B36F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4A96096D15B116FE00E4B36F /* EasyDrive */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4A96096C15B116FE00E4B36F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A96097D15B116FE00E4B36F /* InfoPlist.strings in Resources */,
+				4A96098315B116FE00E4B36F /* Credits.rtf in Resources */,
+				4A96098915B116FE00E4B36F /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4A96096A15B116FE00E4B36F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A96097F15B116FE00E4B36F /* main.m in Sources */,
+				4A96098615B116FE00E4B36F /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		4A96097B15B116FE00E4B36F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4A96097C15B116FE00E4B36F /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		4A96098115B116FE00E4B36F /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4A96098215B116FE00E4B36F /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		4A96098715B116FE00E4B36F /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4A96098815B116FE00E4B36F /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4A96098A15B116FE00E4B36F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		4A96098B15B116FE00E4B36F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		4A96098D15B116FF00E4B36F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "EasyDrive/EasyDrive-Prefix.pch";
+				INFOPLIST_FILE = "EasyDrive/EasyDrive-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		4A96098E15B116FF00E4B36F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "EasyDrive/EasyDrive-Prefix.pch";
+				INFOPLIST_FILE = "EasyDrive/EasyDrive-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4A96096815B116FE00E4B36F /* Build configuration list for PBXProject "EasyDrive" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4A96098A15B116FE00E4B36F /* Debug */,
+				4A96098B15B116FE00E4B36F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4A96098C15B116FF00E4B36F /* Build configuration list for PBXNativeTarget "EasyDrive" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4A96098D15B116FF00E4B36F /* Debug */,
+				4A96098E15B116FF00E4B36F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4A96096515B116FE00E4B36F /* Project object */;
+}
