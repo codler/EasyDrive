@@ -233,18 +233,17 @@
         [self addQuitAboutItems];
     } else if (previousAppLocation == dock && newAppLocation == both) {
         [self addStatusBarmenu];
-        
-        
     } else if (previousAppLocation == statusbar && newAppLocation == dock) {
         ProcessSerialNumber psn = { 0, kCurrentProcess };
         TransformProcessType(&psn, kProcessTransformToForegroundApplication);
         [self removeQuitAboutItems];
         [self removeStatusBarMenu];
+        [self updateDockIcon];
     } else if (previousAppLocation == statusbar && newAppLocation == both) {
         ProcessSerialNumber psn = { 0, kCurrentProcess };
         TransformProcessType(&psn, kProcessTransformToForegroundApplication);
-        //remove quit & about item
-        [self removeQuitAboutItems];
+        [self removeQuitAboutItems]; //remove quit & about item
+        [self updateDockIcon];
     } else if (previousAppLocation == both && newAppLocation == dock) {
         [self removeStatusBarMenu];        
     } else if (previousAppLocation == both && newAppLocation == statusbar) {
@@ -434,7 +433,12 @@
     NSWorkspace* ws = [NSWorkspace sharedWorkspace];
     
     bool ret;
-    ret =[ws unmountAndEjectDeviceAtPath:[sender representedObject]];
+    NSString* path = [sender representedObject];
+    NSLog(@"%@", path);
+    NSError* error;
+    ret =[ws unmountAndEjectDeviceAtURL:[NSURL fileURLWithPath:path] error:&error];
+    if (error)
+        NSLog(@"%@",[error localizedDescription]);
     if(!ret) {
         [[NSSound soundNamed:@"Funk"] play];
     }
@@ -455,6 +459,14 @@
 - (void) openDiskUtility {
     NSWorkspace* ws = [NSWorkspace sharedWorkspace];
     [ws launchApplication:@"Disk Utility"];
+    AXUIElementRef _systemWideElement;
+    AXUIElementRef _focusedApp;
+    CFTypeRef _focusedWindow;
+    _systemWideElement = AXUIElementCreateSystemWide();
+    AXUIElementCopyAttributeValue(_systemWideElement,
+                                  (CFStringRef)kAXFocusedApplicationAttribute,(CFTypeRef*)&_focusedApp);
+    AXUIElementCopyAttributeValue((AXUIElementRef)_focusedApp,
+                                  (CFStringRef)NSAccessibilityFocusedWindowAttribute,(CFTypeRef*)&_focusedWindow);
 }
 
 

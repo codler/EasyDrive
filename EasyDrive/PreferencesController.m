@@ -12,6 +12,12 @@
 
 - (id) init {
     if(self = [super initWithWindowNibName:@"Preferences"]) {
+        [self.window setDelegate:self];
+        
+        
+        //Close button handles as cancel
+        [[self.window standardWindowButton:NSWindowCloseButton] setAction:@selector(cancelButtonClick:)];
+        [[self.window standardWindowButton:NSWindowCloseButton] setTarget:self];
     }
     return self;
 }
@@ -28,7 +34,7 @@
 
 - (IBAction) showPreferences {
     [self updatePreferencesWindow];
-    
+    [[NSApplication sharedApplication] activateIgnoringOtherApps : YES];
     [NSApp runModalForWindow:self.window];
 }
 
@@ -71,7 +77,9 @@
     }
 }
 
+
 -(IBAction) cancelButtonClick:(id)sender{
+    NSLog(@"cancel");
     [self close];
     [NSApp stopModal];
 

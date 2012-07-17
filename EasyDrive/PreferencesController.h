@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "Preferences.h"
 
-@interface PreferencesController : NSWindowController {
+@interface PreferencesController : NSWindowController<NSWindowDelegate> {
     @private
     
     NSUserDefaults* userDef;

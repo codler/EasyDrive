@@ -13,7 +13,3 @@
 "Open"          = "Open";
 "Mount"         = "Mount";
 "Unmount"       = "Eject"; 
-
-"AXMessageText" = "Please enable access for assistive devices";
-"AXInformativeText" = "System Preferences > Universal Access"; 
-"AXOpen" = "Open Universal Access";

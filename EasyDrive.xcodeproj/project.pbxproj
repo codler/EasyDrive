@@ -13,10 +13,12 @@
 		4A6C677B15B1180E008AC774 /* MainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C677315B1180E008AC774 /* MainController.m */; };
 		4A6C677C15B1180E008AC774 /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C677515B1180E008AC774 /* Preferences.m */; };
 		4A6C677D15B1180E008AC774 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C677715B1180E008AC774 /* PreferencesController.m */; };
-		4A6C678615B11B60008AC774 /* External.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4A6C678515B11B60008AC774 /* External.icns */; };
 		4A6C678815B11BCB008AC774 /* AXAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A6C678A15B11BCB008AC774 /* AXAlert.xib */; };
 		4A6C678C15B11BFE008AC774 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A6C678E15B11BFE008AC774 /* Preferences.xib */; };
 		4A6C679415B11E86008AC774 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A6C679215B11E86008AC774 /* Localizable.strings */; };
+		4A6C679715B12272008AC774 /* External.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4A6C679615B12272008AC774 /* External.icns */; };
+		4A6C67BB15B3B232008AC774 /* Todo in Resources */ = {isa = PBXBuildFile; fileRef = 4A6C67BA15B3B232008AC774 /* Todo */; };
+		4A6C67BE15B4DACC008AC774 /* EasyDrive-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4A96097A15B116FE00E4B36F /* EasyDrive-Info.plist */; };
 		4A96097315B116FE00E4B36F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A96097215B116FE00E4B36F /* Cocoa.framework */; };
 		4A96097D15B116FE00E4B36F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A96097B15B116FE00E4B36F /* InfoPlist.strings */; };
 		4A96097F15B116FE00E4B36F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A96097E15B116FE00E4B36F /* main.m */; };
@@ -39,19 +41,25 @@
 		4A6C677615B1180E008AC774 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
 		4A6C677715B1180E008AC774 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesController.m; sourceTree = "<group>"; };
 		4A6C678415B118AF008AC774 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		4A6C678515B11B60008AC774 /* External.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = External.icns; sourceTree = "<group>"; };
 		4A6C678915B11BCB008AC774 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/AXAlert.xib; sourceTree = "<group>"; };
 		4A6C678B15B11BD2008AC774 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/AXAlert.xib; sourceTree = "<group>"; };
 		4A6C678D15B11BFE008AC774 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/Preferences.xib; sourceTree = "<group>"; };
 		4A6C678F15B11C03008AC774 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/Preferences.xib; sourceTree = "<group>"; };
 		4A6C679315B11E86008AC774 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = EasyDrive/fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4A6C679515B11E94008AC774 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = EasyDrive/en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4A6C679615B12272008AC774 /* External.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = External.icns; path = ../External.icns; sourceTree = "<group>"; };
+		4A6C679815B122F4008AC774 /* EasyDrive.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = EasyDrive.entitlements; sourceTree = "<group>"; };
+		4A6C67BA15B3B232008AC774 /* Todo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Todo; path = EasyDrive/Todo; sourceTree = "<group>"; };
+		4A6C67BC15B4D8B3008AC774 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/Preferences.xib; sourceTree = "<group>"; };
+		4A6C67BD15B4DACC008AC774 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = EasyDrive/de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4A6C67BF15B503A5008AC774 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		4A6C67C015B503EE008AC774 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/AXAlert.xib; sourceTree = "<group>"; };
 		4A96096E15B116FE00E4B36F /* EasyDrive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyDrive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A96097215B116FE00E4B36F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		4A96097515B116FE00E4B36F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		4A96097615B116FE00E4B36F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		4A96097715B116FE00E4B36F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		4A96097A15B116FE00E4B36F /* EasyDrive-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "EasyDrive-Info.plist"; sourceTree = "<group>"; };
+		4A96097A15B116FE00E4B36F /* EasyDrive-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "EasyDrive-Info.plist"; sourceTree = "<group>"; };
 		4A96097C15B116FE00E4B36F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4A96097E15B116FE00E4B36F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4A96098015B116FE00E4B36F /* EasyDrive-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EasyDrive-Prefix.pch"; sourceTree = "<group>"; };
@@ -91,7 +99,7 @@
 		4A6C678715B11B63008AC774 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				4A6C678515B11B60008AC774 /* External.icns */,
+				4A6C679615B12272008AC774 /* External.icns */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -99,6 +107,7 @@
 		4A96096315B116FE00E4B36F = {
 			isa = PBXGroup;
 			children = (
+				4A6C67BA15B3B232008AC774 /* Todo */,
 				4A96097815B116FE00E4B36F /* EasyDrive */,
 				4A96097115B116FE00E4B36F /* Frameworks */,
 				4A96096F15B116FE00E4B36F /* Products */,
@@ -135,6 +144,7 @@
 		4A96097815B116FE00E4B36F /* EasyDrive */ = {
 			isa = PBXGroup;
 			children = (
+				4A6C679815B122F4008AC774 /* EasyDrive.entitlements */,
 				4A96098415B116FE00E4B36F /* AppDelegate.h */,
 				4A96098515B116FE00E4B36F /* AppDelegate.m */,
 				4A96098715B116FE00E4B36F /* MainMenu.xib */,
@@ -199,6 +209,7 @@
 			knownRegions = (
 				en,
 				fr,
+				de,
 			);
 			mainGroup = 4A96096315B116FE00E4B36F;
 			productRefGroup = 4A96096F15B116FE00E4B36F /* Products */;
@@ -220,8 +231,10 @@
 				4A96098915B116FE00E4B36F /* MainMenu.xib in Resources */,
 				4A6C678815B11BCB008AC774 /* AXAlert.xib in Resources */,
 				4A6C678C15B11BFE008AC774 /* Preferences.xib in Resources */,
-				4A6C678615B11B60008AC774 /* External.icns in Resources */,
 				4A6C679415B11E86008AC774 /* Localizable.strings in Resources */,
+				4A6C679715B12272008AC774 /* External.icns in Resources */,
+				4A6C67BB15B3B232008AC774 /* Todo in Resources */,
+				4A6C67BE15B4DACC008AC774 /* EasyDrive-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,6 +264,7 @@
 			children = (
 				4A6C678915B11BCB008AC774 /* en */,
 				4A6C678B15B11BD2008AC774 /* fr */,
+				4A6C67C015B503EE008AC774 /* de */,
 			);
 			name = AXAlert.xib;
 			sourceTree = "<group>";
@@ -260,6 +274,7 @@
 			children = (
 				4A6C678D15B11BFE008AC774 /* en */,
 				4A6C678F15B11C03008AC774 /* fr */,
+				4A6C67BC15B4D8B3008AC774 /* de */,
 			);
 			name = Preferences.xib;
 			sourceTree = "<group>";
@@ -269,6 +284,7 @@
 			children = (
 				4A6C679315B11E86008AC774 /* fr */,
 				4A6C679515B11E94008AC774 /* en */,
+				4A6C67BD15B4DACC008AC774 /* de */,
 			);
 			name = Localizable.strings;
 			path = ..;
@@ -295,6 +311,7 @@
 			children = (
 				4A96098815B116FE00E4B36F /* en */,
 				4A6C678415B118AF008AC774 /* fr */,
+				4A6C67BF15B503A5008AC774 /* de */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -345,6 +362,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -352,6 +370,7 @@
 		4A96098D15B116FF00E4B36F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = EasyDrive/EasyDrive.entitlements;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EasyDrive/EasyDrive-Prefix.pch";
 				INFOPLIST_FILE = "EasyDrive/EasyDrive-Info.plist";
@@ -363,6 +382,7 @@
 		4A96098E15B116FF00E4B36F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = EasyDrive/EasyDrive.entitlements;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EasyDrive/EasyDrive-Prefix.pch";
 				INFOPLIST_FILE = "EasyDrive/EasyDrive-Info.plist";

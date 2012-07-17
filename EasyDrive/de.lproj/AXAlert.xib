@@ -48,7 +48,7 @@
 			<object class="NSWindowTemplate" id="174823681">
 				<int key="NSWindowStyleMask">15</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{196, 619}, {429, 203}}</string>
+				<string key="NSWindowRect">{{196, 619}, {470, 203}}</string>
 				<int key="NSWTFlags">544735232</int>
 				<string key="NSWindowTitle">Window</string>
 				<string key="NSWindowClass">NSWindow</string>
@@ -62,7 +62,7 @@
 						<object class="NSButton" id="953525691">
 							<reference key="NSNextResponder" ref="984346105"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{318, 12}, {97, 32}}</string>
+							<string key="NSFrame">{{376, 12}, {80, 32}}</string>
 							<reference key="NSSuperview" ref="984346105"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView"/>
@@ -71,7 +71,7 @@
 							<object class="NSButtonCell" key="NSCell" id="419305436">
 								<int key="NSCellFlags">67239424</int>
 								<int key="NSCellFlags2">134217728</int>
-								<string key="NSContents">Continue</string>
+								<string key="NSContents">Weiter</string>
 								<object class="NSFont" key="NSSupport" id="798969786">
 									<string key="NSName">LucidaGrande</string>
 									<double key="NSSize">13</double>
@@ -90,7 +90,7 @@
 						<object class="NSButton" id="529667026">
 							<reference key="NSNextResponder" ref="984346105"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{186, 12}, {132, 32}}</string>
+							<string key="NSFrame">{{217, 12}, {159, 32}}</string>
 							<reference key="NSSuperview" ref="984346105"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="953525691"/>
@@ -99,7 +99,7 @@
 							<object class="NSButtonCell" key="NSCell" id="243007263">
 								<int key="NSCellFlags">67239424</int>
 								<int key="NSCellFlags2">134217728</int>
-								<string key="NSContents">Quit EasyDrive</string>
+								<string key="NSContents">EasyDrive beenden</string>
 								<reference key="NSSupport" ref="798969786"/>
 								<string key="NSCellIdentifier">_NS:687</string>
 								<reference key="NSControlView" ref="529667026"/>
@@ -114,7 +114,7 @@
 						<object class="NSTextField" id="137461446">
 							<reference key="NSNextResponder" ref="984346105"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{113, 139}, {299, 18}}</string>
+							<string key="NSFrame">{{113, 121}, {340, 36}}</string>
 							<reference key="NSSuperview" ref="984346105"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="158115675"/>
@@ -124,7 +124,7 @@
 							<object class="NSTextFieldCell" key="NSCell" id="399989728">
 								<int key="NSCellFlags">67239424</int>
 								<int key="NSCellFlags2">272629760</int>
-								<string key="NSContents">Please enable access for assitive devices</string>
+								<string key="NSContents">Bitte aktivieren sie den Zugriff für Hilfsgeräte.</string>
 								<object class="NSFont" key="NSSupport">
 									<string key="NSName">LucidaGrande-Bold</string>
 									<double key="NSSize">14</double>
@@ -155,7 +155,7 @@
 						<object class="NSButton" id="158115675">
 							<reference key="NSNextResponder" ref="984346105"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{184, 88}, {157, 25}}</string>
+							<string key="NSFrame">{{200, 88}, {168, 25}}</string>
 							<reference key="NSSuperview" ref="984346105"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="763985357"/>
@@ -164,7 +164,7 @@
 							<object class="NSButtonCell" key="NSCell" id="695582750">
 								<int key="NSCellFlags">-2080244224</int>
 								<int key="NSCellFlags2">134217728</int>
-								<string key="NSContents">Open Universal Access</string>
+								<string key="NSContents">Bedienungshilfen öffnen</string>
 								<reference key="NSSupport" ref="798969786"/>
 								<string key="NSCellIdentifier">_NS:287</string>
 								<reference key="NSControlView" ref="158115675"/>
@@ -211,7 +211,7 @@
 						<object class="NSBox" id="763985357">
 							<reference key="NSNextResponder" ref="984346105"/>
 							<int key="NSvFlags">12</int>
-							<string key="NSFrame">{{0, 58}, {429, 5}}</string>
+							<string key="NSFrame">{{0, 58}, {470, 5}}</string>
 							<reference key="NSSuperview" ref="984346105"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="725200517"/>
@@ -266,7 +266,7 @@
 							</object>
 						</object>
 					</object>
-					<string key="NSFrameSize">{429, 203}</string>
+					<string key="NSFrameSize">{470, 203}</string>
 					<reference key="NSSuperview"/>
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="698921402"/>
@@ -293,19 +293,18 @@
 					<object class="NSTextField" id="49760014">
 						<reference key="NSNextResponder" ref="647391152"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{17, 20}, {231, 68}}</string>
+						<string key="NSFrame">{{17, 20}, {235, 85}}</string>
 						<reference key="NSSuperview" ref="647391152"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:360</string>
 						<string key="NSAntiCompressionPriority">{250, 750}</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="840787759">
 							<int key="NSCellFlags">67239424</int>
 							<int key="NSCellFlags2">205520896</int>
-							<string type="base64-UTF8" key="NSContents">RWFzeURyaXZlIG5lZWRzIHlvdSB0byBlbmFibGUgYWNjZXNzIGZvciBhc3NpdGl2ZSBkZXZpY2VzLgpD
-aGVjayB0aGUgY29ycmVzcG9uZGluZyBvcHRpb24gaW4gdGhlIFVuaXZlcnNhbCBBY2Nlc3MgcHJlZmVy
-ZW5jZXM</string>
+							<string type="base64-UTF8" key="NSContents">RWFzeURyaXZlIGJlbsO2dGlndCBkZW4gWnVncmlmZiBmw7xyIEhpbGZzZ2Vyw6R0ZS4gCktyZXV6ZW4g
+c2llIGRpZSBlbnRzcHJlY2hlbmRlIE3DtmdsaWNoa2VpdCBpbiBkZW4gQmVkaWVudW5nc2hpbGZlbiBF
+aW5zdGVsbHVuZ2VuA</string>
 							<object class="NSFont" key="NSSupport">
 								<string key="NSName">LucidaGrande</string>
 								<double key="NSSize">13</double>
@@ -318,7 +317,7 @@ ZW5jZXM</string>
 						</object>
 					</object>
 				</object>
-				<string key="NSFrameSize">{265, 108}</string>
+				<string key="NSFrameSize">{269, 125}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="49760014"/>
@@ -472,9 +471,9 @@ ZW5jZXM</string>
 							<reference ref="698921402"/>
 							<reference ref="725200517"/>
 							<reference ref="763985357"/>
+							<reference ref="158115675"/>
 							<reference ref="953525691"/>
 							<reference ref="529667026"/>
-							<reference ref="158115675"/>
 						</object>
 						<reference key="parent" ref="174823681"/>
 					</object>

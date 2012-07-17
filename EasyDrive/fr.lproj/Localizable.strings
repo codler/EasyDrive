@@ -13,7 +13,3 @@
 "Open"        = "Ouvrir";
 "Mount"       = "Monter";
 "Unmount"     = "Éjecter"; 
-
-"AXMessageText" = "Veuillez activer l'accès pour les périphériques d'aide";
-"AXInformativeText" = "Preferences Système > Accessibilité"; 
-"AXOpen" = "Ouvrir Accessibilité";

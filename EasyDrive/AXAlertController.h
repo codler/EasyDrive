@@ -14,12 +14,14 @@
     IBOutlet NSButton* quitButton;
     IBOutlet NSButton* openAXButton; 
     IBOutlet NSImageView *icon;
+    IBOutlet NSPopover* popover;
 }
 
 
 - (IBAction) openUniversalAccess:(id)sender;
 - (IBAction) continue:(id)sender;
 - (IBAction) quit:(id)sender;
+- (IBAction) showHelp:(id)sender;
 
 - (void) showAlert;
 @end

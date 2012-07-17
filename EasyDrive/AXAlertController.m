@@ -25,6 +25,7 @@
 {
     [super windowDidLoad];
     [icon setImage:[[NSBundle mainBundle] imageForResource:@"External.icns"]];
+    NSLog(@"%@",icon);
 }
 
 - (void) windowWillClose:(NSNotification *)notification {
@@ -67,5 +68,12 @@
     [NSApp terminate: nil];
 }
 
+- (IBAction) showHelp:(id)sender {
+    if([popover isShown]){
+        [popover close];
+    } else {
+        [popover showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMaxYEdge];
+    }
+}
 
 @end
