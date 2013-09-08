@@ -14,6 +14,9 @@ Access and unmount your drives from the dock & the status bar !
 - Available in 3 languages : English, French, German
 - Available for OS X 10.7 and above
 
+## Documentation 
+### [Changelog](https://github.com/kyro38/EasyDrive/blob/master/CHANGELOG.md)
+
 
 ## Credit 
 EasyDrive uses : 
