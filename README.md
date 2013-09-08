@@ -6,13 +6,21 @@ Access and unmount your drives from the dock & the status bar !
 ![EasyDrive from the dock](https://raw.github.com/kyro38/EasyDrive/master/EasyDrive.png)
 ![EasyDrive from the status bar](https://raw.github.com/kyro38/EasyDrive/master/EasyDrive2.png)
 
+## Features 
+
+- Drives accessible from the dock and the status bar
+- Shows the mounted drive in the dock
+- You can Open & Eject the drives you want
+- Available in 3 languages : English, French, German
+- Available for OS X 10.7 and above
+
 
 ## Credit 
 EasyDrive uses : 
 
-1. Andy Matuschak's [Sparkle Update Framework](http://sparkle.andymatuschak.org/)
-2. Matt Gemmell's [MAAttachedWindow](http://mattgemmell.com/source/) ([licence](http://mattgemmell.com/license/))
-3. Citron's [FSEventListener](http://blog.pcitron.fr/tools/macosx-imageviewer/) 
+- Andy Matuschak's [Sparkle Update Framework](http://sparkle.andymatuschak.org/)
+- Matt Gemmell's [MAAttachedWindow](http://mattgemmell.com/source/) ([licence](http://mattgemmell.com/license/))
+- Citron's [FSEventListener](http://blog.pcitron.fr/tools/macosx-imageviewer/) 
 
 ## Licence 
 
