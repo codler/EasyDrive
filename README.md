@@ -3,12 +3,15 @@ EasyDrive
 
 Access and unmount your drives from the dock & the status bar ! 
 
+![alt tag](https://raw.github.com/kyro38/EasyDrive/master/EasyDrive.png)
+
 
 ## Credit 
-EasyDrive uses
-1. test
-2. test
-3. test
+EasyDrive uses : 
+
+1. Andy Matuschak's [Sparkle Update Framework](http://sparkle.andymatuschak.org/)
+2. Matt Gemmell's [MAAttachedWindow](http://mattgemmell.com/source/) ([licence](http://mattgemmell.com/license/))
+3. Citron's [FSEventListener](http://blog.pcitron.fr/tools/macosx-imageviewer/) 
 
 ## Licence 
 
