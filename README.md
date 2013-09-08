@@ -3,7 +3,8 @@ EasyDrive
 
 Access and unmount your drives from the dock & the status bar ! 
 
-![alt tag](https://raw.github.com/kyro38/EasyDrive/master/EasyDrive.png)
+![EasyDrive from the dock](https://raw.github.com/kyro38/EasyDrive/master/EasyDrive.png)
+![EasyDrive from the status bar](https://raw.github.com/kyro38/EasyDrive/master/EasyDrive2.png)
 
 
 ## Credit 
