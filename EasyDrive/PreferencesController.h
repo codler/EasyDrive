@@ -9,28 +9,27 @@
 #import <Cocoa/Cocoa.h>
 #import "Preferences.h"
 
-@interface PreferencesController : NSWindowController<NSWindowDelegate> {
+@interface PreferencesController : NSWindowController {
     @private
     
     NSUserDefaults* userDef;
     
-    BOOL oldStartsOnLogin;
-    
+    BOOL startsOnLogin;
     
     IBOutlet NSWindow *window;
     IBOutlet NSButton* okButton;
     IBOutlet NSButton* cancelButton;
-    IBOutlet NSPopUpButton* appLocationPopUpButton; 
+    IBOutlet NSPopUpButton* appLocationPopUpButton;
+    IBOutlet NSPopUpButton* notificationsPopUpButton;
     IBOutlet NSButton* openAtLoginCheckbox;
 }
 
 - (IBAction) okButtonClick:(id) sender;
 - (IBAction) cancelButtonClick:(id) sender;
-- (IBAction) appLocationPopUpButton:(id) sender;
 - (IBAction) openAtLoginChecking:(id) sender;
-- (IBAction) showPreferences;
 
-//- (appLocation) locationForString:(NSString*) location;
+
+- (void) showPreferences;
 - (void) setLocationComboBoxWithLocation:(appLocation) loc;
 - (void) updatePreferencesWindow;
 

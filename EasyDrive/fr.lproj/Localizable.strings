@@ -13,3 +13,17 @@
 "Open"        = "Ouvrir";
 "Mount"       = "Monter";
 "Unmount"     = "Éjecter"; 
+
+"DeduplicateMessageText" = "Another copy of EasyDrive is already running.";
+"DeduplicateInformativeText" = "This copy will now quit.";
+
+"CannotEjectMessageText" = "Échec de l’éjection";
+"CannotEjectInformativeText" = "ne peut pas être démonté.\n\nAssurez-vous que toutes les applications et les fichiers de ce disque sont fermés.";
+
+"CheckForUpdate" = "Vérifier les mises à jour";
+
+
+"Connection"    = "Connexion";
+"Connected"     = "a été connecté";
+"Ejection"  = "Éjection";
+"Ejected"   = "a été ejecté";

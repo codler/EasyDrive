@@ -10,20 +10,27 @@
 
 
 // Keys 
-FOUNDATION_EXPORT NSString* const kAppLocation;
+FOUNDATION_EXPORT NSString* const kAppInDock;
+FOUNDATION_EXPORT NSString* const kAppInStatusBar;
+FOUNDATION_EXPORT NSString* const kNotifAtPluggedIn;
+FOUNDATION_EXPORT NSString* const kNotifAtPluggedOut;
 FOUNDATION_EXPORT NSString* const kStartsOnLogin;
 
-//Values
-FOUNDATION_EXPORT NSString* const kBoth;
-FOUNDATION_EXPORT NSString* const kDock;
-FOUNDATION_EXPORT NSString* const kStatusBar;
+
+
 
 typedef enum {
     dock = 0, 
     statusbar = 1,
-    both = 2,
+    bothPositions = 2,
 } appLocation;
 
+typedef enum {
+    none = 0,
+    mount = 1,
+    unmount = 2,
+    bothNotifications = 3,
+} mountNotifications;
 
 
 @interface Preferences : NSObject {
@@ -31,12 +38,12 @@ typedef enum {
 }
 
 + (void) checkPreferencesIntegrity; 
-+ (id) defaultValueForKey:(NSString*) key;
 
 + (BOOL)loginItemExistsForPath:(NSString *)appPath;
 + (void)disableLoginItemForPath:(NSString *)appPath;
 + (void)enableLoginItemForPath:(NSString *)appPath;
 
 + (appLocation) appLocation; 
++ (mountNotifications) mountNotifications;
 
 @end

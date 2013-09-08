@@ -8,8 +8,6 @@
 
 #import "AXAlertController.h"
 
-
-
 @implementation AXAlertController
 
 - (id)init{
@@ -58,7 +56,7 @@
 }
 
 - (IBAction) continue :(id)sender {
-    NSLog(@"continue"); 
+    NSLog(@"continue");
     [self close];
 }
 

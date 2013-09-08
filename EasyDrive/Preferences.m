@@ -9,54 +9,26 @@
 #import "Preferences.h"
 
 // Keys 
-NSString* const kAppLocation = @"appLocation";
 NSString* const kStartsOnLogin = @"startsOnLogin";
-
-//Values
-NSString* const kBoth = @"both";
-NSString* const kDock = @"dock";
-NSString* const kStatusBar = @"statusBar";
+NSString* const kAppInDock = @"appInDock";
+NSString* const kAppInStatusBar = @"appInStatusBar";
+NSString* const kNotifAtPluggedIn = @"NotifAtPluggedIn";
+NSString* const kNotifAtPluggedOut = @"NotifAtPluggedOut";
 
 
 @implementation Preferences
 
--(id) init {
-    self = [super init]; 
-    if (self) {
-        
-    }
-    
-    return self;
-}
-
 + (void) checkPreferencesIntegrity {
-    NSString* appLocation;
-    NSUserDefaults* userDef = [NSUserDefaults standardUserDefaults]; 
-    
-    if ((appLocation = [userDef objectForKey: kAppLocation]) && [appLocation isKindOfClass:[NSString class]]) { 
-        if(!([appLocation isEqualToString:kDock] ||
-            [appLocation isEqualToString:kStatusBar] ||
-            [appLocation isEqualToString:kBoth])) {
-            //If plist contains wrong value 
-            [userDef setValue:[Preferences defaultValueForKey:kAppLocation] forKey:kAppLocation];
-         }
-    } else {
-        //If Wrong type of value or if key is absent
-        [userDef setValue:[Preferences defaultValueForKey:kAppLocation] forKey:kAppLocation];
-    }
-}
-
-+ (id) defaultValueForKey:(NSString*) key {
-    if([key isEqualToString:kAppLocation]) {
-        return kBoth;
-    } else {
-        return nil;
+    NSUserDefaults* userDef = [NSUserDefaults standardUserDefaults];
+    if ( !([userDef boolForKey: kAppInDock] && [userDef boolForKey:kAppInStatusBar])) {
+        //[userDef setBool:true forKey:kAppInDock];
+        //[userDef setBool:true forKey:kAppInStatusBar];
     }
 }
 
 
 
-#pragma mark Login Item 
+#pragma mark Login Item
 
 + (BOOL)loginItemExistsForPath:(NSString *)appPath {
 	BOOL found = NO;  
@@ -117,18 +89,38 @@ NSString* const kStatusBar = @"statusBar";
 	if (loginItemsArray != NULL) CFRelease(loginItemsArray);
 }
 
+#pragma mark lalallala
+
 + (appLocation) appLocation {
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    NSString* appLocation = [userDef stringForKey:kAppLocation];
+    bool appInDock = [userDef boolForKey:kAppInDock];
+    bool appInStatusBar = [userDef boolForKey:kAppInStatusBar];
 
-    if ([appLocation isEqualToString:kDock]) {
+    
+    if (appInDock && ! appInStatusBar) {
         return dock;
-    } else if ([appLocation isEqualToString:kStatusBar]){
+    } else if (appInStatusBar && ! appInDock){
         return statusbar;
-    } else if ([appLocation isEqualToString:kBoth]) {
-        return both;
+    } else if (appInDock && appInStatusBar) {
+        return bothPositions;
     } else {
-        return both;
+        return bothPositions;
+    }
+}
+
++ (mountNotifications) mountNotifications {
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    bool mountNotif = [userDef boolForKey:kNotifAtPluggedIn];
+    bool unmountNotif = [userDef boolForKey:kNotifAtPluggedOut];
+    
+    if( mountNotif && unmountNotif) {
+        return bothNotifications;
+    } else if (mountNotif) {
+        return mount;
+    } else if (unmountNotif) {
+        return unmount;
+    } else {
+        return none;
     }
 }
 

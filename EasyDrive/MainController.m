@@ -6,31 +6,33 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "MainController.h"
-#import "AXAlertController.h"
 
 @implementation MainController
 
-@synthesize doNotOpenMenu=_doNotOpenMenu; 
+@synthesize menuIsOpen=_menuIsOpen;
 @synthesize contextualDockMenu=_contextualDockMenu;
+@synthesize lastDockMenuClose=_lastDockMenuClose;
+
 
 -(id) init {
     self = [super init]; 
     if (self) {
         NSLog(@"init mainController");
         //Prefs
-        userDefaults = [NSUserDefaults standardUserDefaults];
+        NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
         [Preferences checkPreferencesIntegrity];
-        [userDefaults addObserver:self forKeyPath:kAppLocation options:NSKeyValueObservingOptionNew context:NULL];        
-        
-        fileManager = [[NSFileManager alloc]init];
+        [userDefaults addObserver:self forKeyPath:kAppInDock options:NSKeyValueObservingOptionNew context:NULL];
+        [userDefaults addObserver:self forKeyPath:kAppInStatusBar options:NSKeyValueObservingOptionNew context:NULL];
+
         iconArray = [[NSMutableArray alloc] initWithCapacity:20];
         
         
-        //Dock Menu
-        _dockMenu = [[NSMenu alloc] init];
-        [_dockMenu setDelegate: self];
+        ///////  UI INIT
         
+        _dockMenu = [[NSMenu alloc] init];
+        [_dockMenu setDelegate:self];
         
         //Contextual Dock menu
         _contextualDockMenu = [[NSMenu alloc] init];
@@ -38,94 +40,51 @@
         NSMenuItem* item = [_contextualDockMenu addItemWithTitle:NSLocalizedString(@"Preferences",@"") action:@selector(showPreferences:) keyEquivalent:@""];
         item.target=self;
         
-        NSString *appName = [[NSFileManager defaultManager] displayNameAtPath:@"/Applications/Utilities/Disk Utility.app"] ;
-        appName = [appName substringWithRange:NSMakeRange(0, [appName length]-4)]; //Remove .app extention
-        item = [_contextualDockMenu addItemWithTitle:appName action:@selector(openDiskUtility) keyEquivalent:@""];
+        NSString *appName = [[NSFileManager defaultManager] displayNameAtPath:@"/Applications/Utilities/Disk Utility.app"];
+        //appName = [appName substringWithRange:NSMakeRange(0, [appName length]-4)]; //Remove .app extention for 10.7 ?
+        item = [_contextualDockMenu addItemWithTitle:appName action:@selector(openDiskUtility:) keyEquivalent:@""];
         item.target=self;
         
-        
-        //StatusBar menu 
+        //StatusBar menu
         _statusBarMenu   = [[NSMenu alloc] init];
-        [_statusBarMenu addItem:[NSMenuItem separatorItem]];
-        item = [_statusBarMenu addItemWithTitle:NSLocalizedString(@"Preferences",@"") action:@selector(showPreferences:) keyEquivalent:@""];
-        [item setTarget:self];       
         
         
+        //////////////////////////////////////////////
         
         core = [[Core alloc] init];
         [core setDelegate:self];
         [core performSelectorOnMainThread:@selector(loadMountedDevices) withObject:nil waitUntilDone:NO];
         
-        [self readDockPosition];
-        [self watchConfigFile:[@"~/Library/Preferences/com.apple.dock.plist" stringByExpandingTildeInPath]];
-        
+        _lastDockMenuClose = [NSDate date];
         
         currentAppLocation = [Preferences appLocation];
         [self updateAppLocation];
+        
+        viewController = [[DrivesViewController alloc] initWithNibName:@"Collection" bundle:nil];
+        [viewController setDrives:core.deviceArray];
+
         NSLog(@"end init mainController");
     }
     return self;
 }
 
-- (void) dealloc {
-    [userDefaults removeObserver:self forKeyPath:@"appLocation"];
-}
-
-- (void) readDockPosition {
-    NSString *plistPath = [@"~/Library/Preferences/com.apple.dock.plist" stringByExpandingTildeInPath];
-    NSDictionary *plistData = [NSDictionary dictionaryWithContentsOfFile:plistPath];
-    NSString *dockLocation = [plistData objectForKey:@"orientation"];
-    if( [dockLocation isEqualToString:@"left"]){
-        dockPosition=left;
-    } else if( [dockLocation isEqualToString:@"bottom"]){
-        dockPosition=bottom;
-    } else if( [dockLocation isEqualToString:@"right"]){
-        dockPosition=right;
-    }
-}
-
-- (void) watchConfigFile:(NSString*) path{
-    int fildes = open([path cStringUsingEncoding:NSASCIIStringEncoding], O_RDONLY);
-    
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    
-    __block typeof(self) blockSelf = self;
-	__block dispatch_source_t source = dispatch_source_create(DISPATCH_SOURCE_TYPE_VNODE,fildes, 
-															  DISPATCH_VNODE_DELETE | DISPATCH_VNODE_WRITE | DISPATCH_VNODE_EXTEND | DISPATCH_VNODE_ATTRIB | DISPATCH_VNODE_LINK | DISPATCH_VNODE_RENAME | DISPATCH_VNODE_REVOKE,
-															  queue);
-	dispatch_source_set_event_handler(source, ^
-                                      {
-                                          unsigned long flags = dispatch_source_get_data(source);
-                                          if(flags & DISPATCH_VNODE_DELETE)
-                                          {
-                                              dispatch_source_cancel(source);                                              
-                                              [self readDockPosition];
-                                              [blockSelf watchConfigFile:path];
-                                          }
-                                          // Reload config file
-                                      });
-	dispatch_source_set_cancel_handler(source, ^(void) 
-                                       {
-                                           close(fildes);
-                                       });
-	dispatch_resume(source);
-}
-
 - (void) updateDockIcon {
-    NSLog(@"updateDockIcon");
     [iconArray removeAllObjects];
     @synchronized(core.deviceArray) {
         if([core.deviceArray count] < 1) { //In case of no device are mounted. 
             return;
         }
         for(Device* device in core.deviceArray) {
-            NSImage* icon = device.icon;
-            [icon setSize:NSMakeSize(256.0,256.0)];
-            [iconArray addObject:icon];
+            if(device.icon){
+                NSImage* icon = device.icon;
+                [icon setSize:NSMakeSize(256.0,256.0)];
+                [iconArray addObject:icon];
+            }
         }
     }
     
-    NSImage* icon1, *icon2, *icon3, *icon4, *icon5, *icon6; 
+    //TODO ARRAY
+    NSImage* icon1, *icon2, *icon3, *icon4, *icon5, *icon6;
     if([iconArray count] > 0) {
         icon1 =[iconArray objectAtIndex:0];
     }
@@ -141,28 +100,28 @@
     if([iconArray count] > 4) {
         icon5 =[iconArray objectAtIndex:4];
     }
-    if([iconArray count] > 4) {
+    if([iconArray count] > 5) {
         icon6 =[iconArray objectAtIndex:5];
     }
     
     
-    NSImage *newImage = [[NSImage alloc]
+    NSImage *newIcon = [[NSImage alloc]
                          initWithSize:NSMakeSize(icon1.size.width, icon1.size.height)];
     
     NSSize halfSize = NSMakeSize(icon1.size.width/2, icon1.size.height/2);
     CGFloat half = icon1.size.width/2;
-    [newImage lockFocus];
+    [newIcon lockFocus];
     
     switch([iconArray count]) {
         case 1:
             [icon1 drawAtPoint:NSMakePoint(0,0) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
             break;
         case 2: 
-            [icon1 setSize:NSMakeSize(2*newImage.size.width/3, 2*newImage.size.height/3)];
-            [icon2 setSize:NSMakeSize(2*newImage.size.width/3, 2*newImage.size.height/3)];
+            [icon1 setSize:NSMakeSize(2*newIcon.size.width/3, 2*newIcon.size.height/3)];
+            [icon2 setSize:NSMakeSize(2*newIcon.size.width/3, 2*newIcon.size.height/3)];
             
-            [icon1 drawAtPoint:NSMakePoint(0,newImage.size.height/3) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
-            [icon2 drawAtPoint:NSMakePoint(newImage.size.width/3,0) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+            [icon1 drawAtPoint:NSMakePoint(0,newIcon.size.height/3) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+            [icon2 drawAtPoint:NSMakePoint(newIcon.size.width/3,0) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
             break;
         case 3:
             [icon1 setSize:halfSize];
@@ -206,55 +165,63 @@
             [icon2 drawAtPoint:NSMakePoint(half,half) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
             [icon3 drawAtPoint:NSMakePoint(half,0) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
             [icon4 drawAtPoint:NSMakePoint(0,half) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
-            [icon4 drawAtPoint:NSMakePoint(half/2,0) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
-            [icon4 drawAtPoint:NSMakePoint(half/2,half) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+            [icon5 drawAtPoint:NSMakePoint(half/2,0) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+            [icon6 drawAtPoint:NSMakePoint(half/2,half) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
             break;
     }    
     
-    [newImage unlockFocus];
+    [newIcon unlockFocus];
     
-    [NSApp setApplicationIconImage:newImage];
+    [NSApp setApplicationIconImage:newIcon];
     [iconArray removeAllObjects];
     @synchronized(core.deviceArray) {
         for(Device* device in core.deviceArray) {
-            NSImage* icon = device.icon;
-            [icon setSize:NSMakeSize(32.0,32.0)];
+            if(device.icon) {
+                NSImage* icon = device.icon;
+                [icon setSize:NSMakeSize(32.0,32.0)];
+            }
         }
     }
 }
 
 - (void) updateAppLocation{
+    if ([dw isVisible]) {
+        //closing the window if changing the dock position while it's open.
+        [dw orderOut:nil];
+    }
+    
+    
     appLocation newAppLocation = [Preferences appLocation];
     
-    if(previousAppLocation == dock && newAppLocation == statusbar) {
+    if((previousAppLocation == dock || previousAppLocation == bothPositions )
+        && newAppLocation == statusbar) {
+        //Only the status bar is visible therefore adding pref/about/quit items
+        
         ProcessSerialNumber psn = { 0, kCurrentProcess };
-        TransformProcessType(&psn, kProcessTransformToUIElementApplication);
+        TransformProcessType(&psn, kProcessTransformToUIElementApplication); //remove from dock
         [self addStatusBarmenu];        
         [self addQuitAboutItems];
-    } else if (previousAppLocation == dock && newAppLocation == both) {
-        [self addStatusBarmenu];
+    } else if (previousAppLocation == dock && newAppLocation == bothPositions) {
+        [self addStatusBarmenu]; //add to status bar
     } else if (previousAppLocation == statusbar && newAppLocation == dock) {
         ProcessSerialNumber psn = { 0, kCurrentProcess };
-        TransformProcessType(&psn, kProcessTransformToForegroundApplication);
-        [self removeQuitAboutItems];
+        TransformProcessType(&psn, kProcessTransformToForegroundApplication); //app visible in the dock
+        [self removeQuitAboutItems];  //remove the pref/about/items from the menu
         [self removeStatusBarMenu];
         [self updateDockIcon];
-    } else if (previousAppLocation == statusbar && newAppLocation == both) {
+    } else if (previousAppLocation == statusbar && newAppLocation == bothPositions) {
         ProcessSerialNumber psn = { 0, kCurrentProcess };
         TransformProcessType(&psn, kProcessTransformToForegroundApplication);
-        [self removeQuitAboutItems]; //remove quit & about item
+        [self removeQuitAboutItems];  //remove quit & about item
         [self updateDockIcon];
-    } else if (previousAppLocation == both && newAppLocation == dock) {
+    } else if (previousAppLocation == bothPositions && newAppLocation == dock) {
         [self removeStatusBarMenu];        
-    } else if (previousAppLocation == both && newAppLocation == statusbar) {
-        ProcessSerialNumber psn = { 0, kCurrentProcess };
-        TransformProcessType(&psn, kProcessTransformToUIElementApplication);
-        [self addStatusBarmenu];
-        [self addQuitAboutItems];
     }
     previousAppLocation=newAppLocation;
 }
 
+
+//Add the menu to the status bar
 - (void) addStatusBarmenu {
     if(! [statusItem statusBar]) {
         statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
@@ -266,6 +233,7 @@
     }
 }
 
+//Remove the menu for the status bar
 - (void) removeStatusBarMenu {
     NSStatusBar* statusBar = [NSStatusBar systemStatusBar];
     if( statusItem && [statusItem statusBar]) {
@@ -277,11 +245,12 @@
 }
 
 
-//For observing modification oser UserDefaults
 - (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
                          change:(NSDictionary *)change
                         context:(void *)context {
-    if([keyPath isEqualToString:kAppLocation]) {
+
+    //When dock position is modified in the preferences
+    if([keyPath isEqualToString:kAppInDock] || [keyPath isEqualToString:kAppInStatusBar]) {
         [self updateAppLocation];
     } else {
         NSLog(@"KVO: %@ changed property %@ to value %@", object, keyPath, change);
@@ -292,101 +261,100 @@
 
 //Delegate methods used to know if clicking on dock icon
 - (void) menuWillOpen:(NSMenu *)menu {
-    menuIsOpen=true;
-    monitor = [NSEvent addGlobalMonitorForEventsMatchingMask:NSLeftMouseUp 
-                                                     handler:^(NSEvent *event){
-                                                         [self handleGlobalClickAtPoint:[event locationInWindow]];
-                                                     }];
+    _menuIsOpen=true;
 }
 
 - (void) menuDidClose:(NSMenu *)menu {
-    menuIsOpen=false;
-    [NSEvent removeMonitor:monitor];
-    monitor=nil;
+    _menuIsOpen=false;
+    _lastDockMenuClose= [NSDate date];
+    [NSApp hide:self];
 }
 
-- (void) handleGlobalClickAtPoint:(NSPoint) point {
-    if(menuIsOpen) {
-        CGPoint iconPos;
-        CGSize iconSize;
-        [self dockIconIsAt:&iconPos withSize:&iconSize];
-        
-        iconPos.y = [[NSScreen mainScreen] frame].size.height-iconPos.y;
-        
-        CGRect rect = CGRectMake(iconPos.x, iconPos.y, iconSize.width, -iconSize.height);
-        
-        if(CGRectContainsPoint(rect, point)) {
-            [_dockMenu performSelectorOnMainThread:@selector(cancelTracking) withObject:nil waitUntilDone:false];
-            _doNotOpenMenu=true;
-        }
-    }
-}
 
-//Menu handling
-
-- (void) popUpTheDockMenu { 
-    NSLog(@"popup");
-    CGPoint iconPos; 
-    CGSize iconSize;
-    if(![self dockIconIsAt:&iconPos withSize:&iconSize]) {
-        //if API no enabled 
+- (void) popUpTheDockMenu {
+    CGPoint iconPos;  CGSize iconSize;
+    if(![AccessibilityUtilities dockIconIsAt:&iconPos withSize:&iconSize]) {
+        //if AX API is not enabled
         return;
     }
+    
+    //On wich side is the dock ?
+    //Computing also the window position
+    dockposition dockPosition; // RETINA COMPATIBLE ???
     NSPoint pos;
-    if(dockPosition == left) {
-        pos.x = iconPos.x+iconSize.width*1.2;
-        pos.y = [[NSScreen mainScreen] frame].size.height - (iconPos.y+iconSize.height/2) + _dockMenu.size.height/2;    
-    } else if (dockPosition == right) {
-        pos.x = iconPos.x-_dockMenu.size.width;        
-        pos.y = [[NSScreen mainScreen] frame].size.height - (iconPos.y+iconSize.height/2) + _dockMenu.size.height/2;    
+    if(iconPos.x < 20) {
+        dockPosition = left;
+        pos.x = iconPos.x*2.2+iconSize.width;
+        pos.y = [[NSScreen mainScreen] frame].size.height-(iconPos.y+iconSize.height/2);
+    } else if ([[NSScreen mainScreen] frame].size.width -  (iconPos.x+iconSize.width) < 20) {
+        dockPosition = right;
+        float rest = [[NSScreen mainScreen] frame].size.width - (iconPos.x + iconSize.width);
+        pos.x = iconPos.x-rest ;
+        pos.y = [[NSScreen mainScreen] frame].size.height-(iconPos.y+iconSize.height/2);
     } else {
-        pos.x = iconPos.x+iconSize.width/2-_dockMenu.size.width/2;
-        pos.y = ([[NSScreen mainScreen] frame].size.height - iconPos.y)+_dockMenu.size.height-2;
+        dockPosition = bottom;
+        pos.x = iconPos.x + iconSize.width/2;
+        pos.y = [[NSScreen mainScreen] frame].size.height-iconPos.y;
     }
-    //Popup the menu 
-    [_dockMenu popUpMenuPositioningItem:nil atLocation:pos inView:nil];
+
+    if(! [dw isVisible]) {
+        dw = [[DrivesWindow alloc] initWithView:[viewController view] attachedToPoint:pos];
+        
+        //To set the arrow position
+        if(dockPosition == left) {
+            [dw setLeft];
+        } else if (dockPosition == right) {
+            [dw setRight];
+        } else if (dockPosition == bottom) {
+            [dw setBottom];
+        }
+        
+        for(int i=0;i<[[viewController.arrayController arrangedObjects] count]; i++) {
+            DriveViewBoxController* dvb = (DriveViewBoxController*) [viewController.collectionView itemAtIndex:i];
+            dvb.target = self;
+        }
+        
+        [NSApp activateIgnoringOtherApps:YES];
+        [dw makeKeyAndOrderFront:nil];
+    } else {
+        [dw orderOut:nil];
+    }
 }
 
 - (void) addDeviceToMenu:(Device*) device {
-    NSMenuItem *subItem1, *subItem2;
-    NSMenuItem* item;
-    item = [[NSMenuItem alloc] init];
-    NSString* path = device.path;
-    [item setTitle:[fileManager displayNameAtPath:path]];
+    [viewController updateWindow];
+    
+    NSMenuItem* item = [[NSMenuItem alloc] init];
+    [item setTitle:device.name];
     [item setImage:device.icon];
     
-    NSMenu *submenu = [[NSMenu alloc] init];
+    //For direct clicking on the item
+    [item setAction:@selector(openDevice:)];
+    [item setRepresentedObject:device];
+    [item setTarget:self];
     
-    subItem1 = [submenu addItemWithTitle:NSLocalizedString(@"Open", @"") action:@selector(openDriveWithPath:) keyEquivalent:@""];
-    [subItem1 setTarget:self];
-    [subItem1 setImage:[NSImage imageNamed:NSImageNameFolder]];
-    [subItem1 setRepresentedObject:path];
-    
-    subItem2 = [submenu addItemWithTitle:NSLocalizedString(@"Unmount", @"") action:nil keyEquivalent:@""];
-    if(! [path isEqualToString:@"/"]) { // You can't unmount root. 
-        [subItem2 setTarget:self];
-        [subItem2 setAction:@selector(unmountDeviceWithPath:)];
+    if(device.ejectAvailable) { // You can't unmount root.
+        NSMenu *ejectMenu = [[NSMenu alloc] init];
+        NSMenuItem *ejectItem;
+        ejectItem = [ejectMenu addItemWithTitle:NSLocalizedString(@"Unmount", @"") action:nil keyEquivalent:@""];
+        [ejectItem setTarget:self];
+        [ejectItem setAction:@selector(unmountDevice:)];
+        [item setSubmenu: ejectMenu];
+        [ejectItem setImage: [[NSWorkspace sharedWorkspace] iconForFileType:NSFileTypeForHFSTypeCode(kEjectMediaIcon)]];
+        [ejectItem setRepresentedObject:device];
     }
-    [subItem2 setImage: [[NSWorkspace sharedWorkspace] iconForFileType:NSFileTypeForHFSTypeCode(kEjectMediaIcon)]];        
-    [subItem2 setRepresentedObject:path];
     
-    //For direct clicking on the item 
-    [item setAction:@selector(openDriveWithPath:)];
-    [item setRepresentedObject:path];
-    [item setTarget:self];   
-    
-    [item setSubmenu: submenu]; 
-    
-    [_dockMenu addItem:item];
-    
-    int i;
+    int i; //index of separator to insert before separator
     for(i=0; i< _contextualDockMenu.numberOfItems;i++) {
         NSMenuItem* item = [_contextualDockMenu itemAtIndex:i];
         if([item isSeparatorItem]){
             break;
         }
     }
-    [_contextualDockMenu insertItem:[item copy] atIndex:i];
+    NSMenuItem* contextualMenuItem = [item copy];
+    [_contextualDockMenu insertItem:contextualMenuItem atIndex:i];
+
+    
     
     for(i=0; i< _statusBarMenu.numberOfItems;i++) {
         NSMenuItem* item = [_statusBarMenu itemAtIndex:i];
@@ -394,59 +362,86 @@
             break;
         }
     }
-    [_statusBarMenu insertItem:[item copy] atIndex:i];
+    NSMenuItem* statusBarMenuItem = [item copy];
+    [_statusBarMenu insertItem:statusBarMenuItem atIndex:i];
+    
+    //Register for Device modifations :
+    if([item conformsToProtocol:@protocol(DeviceDelegate)])
+        [device addDelegate:item];
+    if([contextualMenuItem conformsToProtocol:@protocol(DeviceDelegate)])
+        [device addDelegate:contextualMenuItem];
+    if([statusBarMenuItem conformsToProtocol:@protocol(DeviceDelegate)])
+        [device addDelegate:statusBarMenuItem];
     
     [self updateDockIcon];
 }
 
-- (void) removeDeviceFromMenu:(Device *)device {
-    NSString* title = [fileManager displayNameAtPath:device.path];
+- (void) removeDeviceFromMenu:(Device *) device {
+    [viewController updateWindow];
     
-    NSMenuItem* item = [_dockMenu itemWithTitle:title];
-    [_dockMenu removeItem:item];
-    item = [_contextualDockMenu itemWithTitle:title];
-    [_contextualDockMenu removeItem:item];
-    item = [_statusBarMenu itemWithTitle:title];
-    [_statusBarMenu removeItem:item];
-    
+    for (NSMenuItem* item in _contextualDockMenu.itemArray) {
+        if (item.representedObject == device) {
+            [_contextualDockMenu removeItem:item];
+            break;
+        }
+    }
+    for (NSMenuItem* item in _statusBarMenu.itemArray) {
+        if (item.representedObject == device) {
+            [_statusBarMenu removeItem:item];
+            break;
+        }
+    }
     [self updateDockIcon];
 }
 
 - (void) removeQuitAboutItems {
-    NSLog(@"remove");
-    [_statusBarMenu removeItem:[_statusBarMenu itemWithTitle:NSLocalizedString(@"About", @"")]];
-    [_statusBarMenu removeItem:[_statusBarMenu itemWithTitle:NSLocalizedString(@"Quit", @"")]];
+    //Remove the items of the StatusBar Menu when the DockIcon is present
+    [_statusBarMenu removeItemAtIndex:[[_statusBarMenu itemArray] count]-1]; // separator
+    [_statusBarMenu removeItemAtIndex:[[_statusBarMenu itemArray] count]-1]; // Pref
+    [_statusBarMenu removeItemAtIndex:[[_statusBarMenu itemArray] count]-1]; // Update
+    [_statusBarMenu removeItemAtIndex:[[_statusBarMenu itemArray] count]-1]; // About
+    [_statusBarMenu removeItemAtIndex:[[_statusBarMenu itemArray] count]-1]; // separator
+    [_statusBarMenu removeItemAtIndex:[[_statusBarMenu itemArray] count]-1]; // quit
 }
 
+
+
+// Adding Preference, Update, About & Quit items to the Status Bar menu
+// Used when only the status bar menu is visible
 - (void) addQuitAboutItems {
-    NSMenuItem* item = [_statusBarMenu addItemWithTitle:NSLocalizedString(@"About", @"") action:@selector(orderFrontStandardAboutPanel:) keyEquivalent:@""];
+    
+    [_statusBarMenu addItem:[NSMenuItem separatorItem]];
+    
+    NSMenuItem* item = [_statusBarMenu addItemWithTitle:NSLocalizedString(@"Preferences",@"") action:@selector(showPreferences:) keyEquivalent:@""];
+    [item setTarget:self];
+    
+    item = [_statusBarMenu addItemWithTitle:NSLocalizedString(@"CheckForUpdate", @"") action:@selector(checkUpdates) keyEquivalent:@""];
+    [item setTarget:self];
+    
+    item = [_statusBarMenu addItemWithTitle:NSLocalizedString(@"About", @"") action:@selector(orderFrontStandardAboutPanel:) keyEquivalent:@""];
     [item setTarget:NSApp];
     
-    item = [_statusBarMenu addItemWithTitle:NSLocalizedString(@"Quit", @"") action:@selector(terminate:) keyEquivalent:@""];
+    [_statusBarMenu addItem:[NSMenuItem separatorItem]];
+    item = [_statusBarMenu addItemWithTitle:NSLocalizedString(@"Quit", @"") action:@selector(terminate:) keyEquivalent:@"q"];
     [item setTarget:NSApp];
+}
+
+- (void) checkUpdates {
+    [[[SUUpdater alloc] init] checkForUpdates:nil];
 }
 
 
 
+#pragma mark Menu Commands
 //MenuItem commands 
-- (void) unmountDeviceWithPath:(id) sender {
-    NSWorkspace* ws = [NSWorkspace sharedWorkspace];
-    
-    bool ret;
-    NSString* path = [sender representedObject];
-    NSLog(@"%@", path);
-    NSError* error;
-    ret =[ws unmountAndEjectDeviceAtURL:[NSURL fileURLWithPath:path] error:&error];
-    if (error)
-        NSLog(@"%@",[error localizedDescription]);
-    if(!ret) {
-        [[NSSound soundNamed:@"Funk"] play];
-    }
+- (IBAction) unmountDevice:(id) sender {
+    Device* device = [sender representedObject];
+    [core performSelectorOnMainThread:@selector(unmountDevice:) withObject:device waitUntilDone:NO];
 }
 
-- (void) openDriveWithPath:(id) sender {
-    NSWorkspace* ws = [NSWorkspace sharedWorkspace];
-    [ws openFile:[sender representedObject] withApplication:@"Finder"];
+- (IBAction) openDevice:(id) sender {
+    [core openDevice:[sender representedObject]];
+    
 }
 
 - (IBAction)showPreferences:(id)sender {
@@ -456,7 +451,7 @@
     [prefCon showPreferences];
 }
 
-- (void) openDiskUtility {
+- (IBAction) openDiskUtility:(id) sender {
     NSWorkspace* ws = [NSWorkspace sharedWorkspace];
     [ws launchApplication:@"Disk Utility"];
     AXUIElementRef _systemWideElement;
@@ -469,85 +464,13 @@
                                   (CFStringRef)NSAccessibilityFocusedWindowAttribute,(CFTypeRef*)&_focusedWindow);
 }
 
+@end
 
 
-#pragma mark AX Methods 
-- (NSArray *)subelementsFromElement:(AXUIElementRef)element forAttribute:(NSString *)attribute{
-    CFArrayRef subElementsCFArray = nil;
-    CFIndex count = 0;
-    AXError result;
-    
-    result = AXUIElementGetAttributeValueCount(element, (__bridge CFStringRef)attribute, &count);
-    if (result != kAXErrorSuccess) return nil;
-    result = AXUIElementCopyAttributeValues(element, (__bridge CFStringRef)attribute, 0, count, (CFArrayRef *) &subElementsCFArray);
-    if (result != kAXErrorSuccess) return nil;
-    NSArray *subElements = (__bridge NSArray *)subElementsCFArray;
-    return subElements;
-}
-
-- (AXUIElementRef)appDockIconByName:(NSString *)appName{
-    AXUIElementRef appElement = NULL;
-    
-    appElement = AXUIElementCreateApplication([[[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.dock"] lastObject] processIdentifier]);
-    if (appElement != NULL)
-    {
-        AXUIElementRef firstChild = (__bridge AXUIElementRef)[[self subelementsFromElement:appElement forAttribute:@"AXChildren"] objectAtIndex:0];
-        NSArray *children = [self subelementsFromElement:firstChild forAttribute:@"AXChildren"];
-        NSEnumerator *e = [children objectEnumerator];
-        AXUIElementRef axElement;
-        while (axElement = (__bridge AXUIElementRef)[e nextObject])
-        {
-            CFTypeRef value;
-            id titleValue;
-            AXError result = AXUIElementCopyAttributeValue(axElement, kAXTitleAttribute, &value);
-            if (result == kAXErrorSuccess)
-            {
-                if (AXValueGetType(value) != kAXValueIllegalType)
-                    titleValue = [NSValue valueWithPointer:value];
-                else
-                    titleValue = (__bridge id)value; // assume toll-free bridging
-                if ([titleValue isEqual:appName]) {
-                    return axElement;
-                }
-            }
-        }
-    }
-    
-    return nil;
-}
-
-- (BOOL) dockIconIsAt:(CGPoint*) iconPos withSize: (CGSize*) iconSize  {
-    //Check if AX API enabled 
-    if (! AXAPIEnabled()) {
-        AXAlertController* ax = [[AXAlertController alloc] init];
-        [ax showAlert];  
-        
-        return false;
-    }
-    
-    //Pos of icon
-    NSString *appName = [[[NSBundle mainBundle] infoDictionary]   objectForKey:@"CFBundleName"];
-    AXUIElementRef dockIcon = [self appDockIconByName:appName];
-    //    CGSize iconSize;
-    //    CGPoint iconPos;
-    if (dockIcon) {
-        CFTypeRef value;
-        
-        AXError result = AXUIElementCopyAttributeValue(dockIcon, kAXSizeAttribute, &value);
-        if (result == kAXErrorSuccess)
-        {
-            if (AXValueGetValue(value, kAXValueCGSizeType, iconSize)) {
-                //NSLog(@"taille: (%f, %f)", iconSize.width,iconSize.height);
-            }
-        }
-        result = AXUIElementCopyAttributeValue(dockIcon, kAXPositionAttribute, &value);
-        if (result == kAXErrorSuccess)
-        {
-            if (AXValueGetValue(value, kAXValueCGPointType, iconPos)) {
-                //NSLog(@"position: (%f, %f)", iconPos.x,iconPos.y);
-            }
-        }
-    }
-    return true;
+@implementation NSMenuItem (represented)
+-(void) deviceWasUpdated {
+    NSLog(@"device was updated");
+    Device* device = (Device*) self.representedObject;
+    [self setTitle:device.name];
 }
 @end

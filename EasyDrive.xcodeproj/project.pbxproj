@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A16C3AE16ACA2BC007D2206 /* DriveViewPrototype.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A16C3AD16ACA2BC007D2206 /* DriveViewPrototype.xib */; };
+		4A16C3B016ACA6EE007D2206 /* Collection.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A16C3AF16ACA6EE007D2206 /* Collection.xib */; };
+		4A16C3B316ACAA12007D2206 /* DrivesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A16C3B216ACAA12007D2206 /* DrivesViewController.m */; };
+		4A1E092516FE33D500B7E16A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1E092416FE33D500B7E16A /* QuartzCore.framework */; };
+		4A1E092C1708E66500B7E16A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1E092B1708E66500B7E16A /* Carbon.framework */; };
+		4A58E26816B8456E00345FF9 /* DiskArbitration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A58E26716B8456E00345FF9 /* DiskArbitration.framework */; };
+		4A58E26C16B84B7400345FF9 /* DriveViewBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A58E26B16B84B7400345FF9 /* DriveViewBox.m */; };
 		4A6C677815B1180E008AC774 /* AXAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C676D15B1180E008AC774 /* AXAlertController.m */; };
 		4A6C677915B1180E008AC774 /* Core.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C676F15B1180E008AC774 /* Core.m */; };
 		4A6C677A15B1180E008AC774 /* Device.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C677115B1180E008AC774 /* Device.m */; };
@@ -18,16 +25,47 @@
 		4A6C679415B11E86008AC774 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A6C679215B11E86008AC774 /* Localizable.strings */; };
 		4A6C679715B12272008AC774 /* External.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4A6C679615B12272008AC774 /* External.icns */; };
 		4A6C67BB15B3B232008AC774 /* Todo in Resources */ = {isa = PBXBuildFile; fileRef = 4A6C67BA15B3B232008AC774 /* Todo */; };
-		4A6C67BE15B4DACC008AC774 /* EasyDrive-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4A96097A15B116FE00E4B36F /* EasyDrive-Info.plist */; };
+		4A6C67C315B5A1B5008AC774 /* AccessibilityUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C67C215B5A1B5008AC774 /* AccessibilityUtilities.m */; };
 		4A96097315B116FE00E4B36F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A96097215B116FE00E4B36F /* Cocoa.framework */; };
 		4A96097D15B116FE00E4B36F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A96097B15B116FE00E4B36F /* InfoPlist.strings */; };
 		4A96097F15B116FE00E4B36F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A96097E15B116FE00E4B36F /* main.m */; };
 		4A96098315B116FE00E4B36F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 4A96098115B116FE00E4B36F /* Credits.rtf */; };
 		4A96098615B116FE00E4B36F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A96098515B116FE00E4B36F /* AppDelegate.m */; };
 		4A96098915B116FE00E4B36F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A96098715B116FE00E4B36F /* MainMenu.xib */; };
+		4AA5FA0516A82A1900553326 /* Notifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA5FA0416A82A1900553326 /* Notifications.m */; };
+		4AA5FA0E16A8D00700553326 /* DrivesWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA5FA0D16A8D00700553326 /* DrivesWindow.m */; };
+		4AC6B2831612076F00BA0091 /* FSEventsListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC6B282161200B200BA0091 /* FSEventsListener.m */; };
+		4AC6B28916122FEA00BA0091 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AC6B28816122FEA00BA0091 /* Sparkle.framework */; };
+		4AC6B28C161233E000BA0091 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 4AC6B28B161233E000BA0091 /* dsa_pub.pem */; };
+		4AC6B2C616123CD700BA0091 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4AC6B28816122FEA00BA0091 /* Sparkle.framework */; };
+		4AC6B2CD161C88A700BA0091 /* Licence in Resources */ = {isa = PBXBuildFile; fileRef = 4AC6B2CC161C88A700BA0091 /* Licence */; };
+		4AC6B2CF161C890100BA0091 /* Changelog.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4AC6B2CE161C890100BA0091 /* Changelog.txt */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		4AC6B2C516123C8C00BA0091 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4AC6B2C616123CD700BA0091 /* Sparkle.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		4A16C3AD16ACA2BC007D2206 /* DriveViewPrototype.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DriveViewPrototype.xib; sourceTree = "<group>"; };
+		4A16C3AF16ACA6EE007D2206 /* Collection.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Collection.xib; sourceTree = "<group>"; };
+		4A16C3B116ACAA12007D2206 /* DrivesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrivesViewController.h; sourceTree = "<group>"; };
+		4A16C3B216ACAA12007D2206 /* DrivesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrivesViewController.m; sourceTree = "<group>"; };
+		4A1E092416FE33D500B7E16A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		4A1E092B1708E66500B7E16A /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		4A58E26716B8456E00345FF9 /* DiskArbitration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DiskArbitration.framework; path = System/Library/Frameworks/DiskArbitration.framework; sourceTree = SDKROOT; };
+		4A58E26A16B84B7400345FF9 /* DriveViewBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriveViewBox.h; sourceTree = "<group>"; };
+		4A58E26B16B84B7400345FF9 /* DriveViewBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DriveViewBox.m; sourceTree = "<group>"; };
+		4A58E26D16B8ACD900345FF9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		4A6C676C15B1180E008AC774 /* AXAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AXAlertController.h; sourceTree = "<group>"; };
 		4A6C676D15B1180E008AC774 /* AXAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AXAlertController.m; sourceTree = "<group>"; };
 		4A6C676E15B1180E008AC774 /* Core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Core.h; sourceTree = "<group>"; };
@@ -54,6 +92,8 @@
 		4A6C67BD15B4DACC008AC774 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = EasyDrive/de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4A6C67BF15B503A5008AC774 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		4A6C67C015B503EE008AC774 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/AXAlert.xib; sourceTree = "<group>"; };
+		4A6C67C115B5A1B5008AC774 /* AccessibilityUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccessibilityUtilities.h; sourceTree = "<group>"; };
+		4A6C67C215B5A1B5008AC774 /* AccessibilityUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccessibilityUtilities.m; sourceTree = "<group>"; };
 		4A96096E15B116FE00E4B36F /* EasyDrive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyDrive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A96097215B116FE00E4B36F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		4A96097515B116FE00E4B36F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -67,6 +107,16 @@
 		4A96098415B116FE00E4B36F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4A96098515B116FE00E4B36F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		4A96098815B116FE00E4B36F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		4AA5FA0316A82A1900553326 /* Notifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Notifications.h; sourceTree = "<group>"; };
+		4AA5FA0416A82A1900553326 /* Notifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Notifications.m; sourceTree = "<group>"; };
+		4AA5FA0C16A8D00700553326 /* DrivesWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrivesWindow.h; sourceTree = "<group>"; };
+		4AA5FA0D16A8D00700553326 /* DrivesWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrivesWindow.m; sourceTree = "<group>"; };
+		4AC6B281161200B200BA0091 /* FSEventsListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FSEventsListener.h; sourceTree = "<group>"; };
+		4AC6B282161200B200BA0091 /* FSEventsListener.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FSEventsListener.m; sourceTree = "<group>"; };
+		4AC6B28816122FEA00BA0091 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = EasyDrive/Sparkle.framework; sourceTree = "<group>"; };
+		4AC6B28B161233E000BA0091 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
+		4AC6B2CC161C88A700BA0091 /* Licence */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Licence; sourceTree = "<group>"; };
+		4AC6B2CE161C890100BA0091 /* Changelog.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Changelog.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,20 +124,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A1E092C1708E66500B7E16A /* Carbon.framework in Frameworks */,
+				4A1E092516FE33D500B7E16A /* QuartzCore.framework in Frameworks */,
+				4A58E26816B8456E00345FF9 /* DiskArbitration.framework in Frameworks */,
 				4A96097315B116FE00E4B36F /* Cocoa.framework in Frameworks */,
+				4AC6B28916122FEA00BA0091 /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4A16C3AB16ACA274007D2206 /* Drives Window */ = {
+			isa = PBXGroup;
+			children = (
+				4A16C3AF16ACA6EE007D2206 /* Collection.xib */,
+				4A16C3AD16ACA2BC007D2206 /* DriveViewPrototype.xib */,
+				4A16C3B116ACAA12007D2206 /* DrivesViewController.h */,
+				4A16C3B216ACAA12007D2206 /* DrivesViewController.m */,
+				4A58E26A16B84B7400345FF9 /* DriveViewBox.h */,
+				4A58E26B16B84B7400345FF9 /* DriveViewBox.m */,
+				4AA5FA0C16A8D00700553326 /* DrivesWindow.h */,
+				4AA5FA0D16A8D00700553326 /* DrivesWindow.m */,
+			);
+			name = "Drives Window";
+			sourceTree = "<group>";
+		};
 		4A6C678315B11874008AC774 /* Preferences */ = {
 			isa = PBXGroup;
 			children = (
-				4A6C678A15B11BCB008AC774 /* AXAlert.xib */,
 				4A6C678E15B11BFE008AC774 /* Preferences.xib */,
-				4A6C676C15B1180E008AC774 /* AXAlertController.h */,
-				4A6C676D15B1180E008AC774 /* AXAlertController.m */,
 				4A6C677415B1180E008AC774 /* Preferences.h */,
 				4A6C677515B1180E008AC774 /* Preferences.m */,
 				4A6C677615B1180E008AC774 /* PreferencesController.h */,
@@ -104,10 +170,24 @@
 			name = Images;
 			sourceTree = "<group>";
 		};
+		4A6C67C415B5A1E7008AC774 /* AX */ = {
+			isa = PBXGroup;
+			children = (
+				4A6C67C115B5A1B5008AC774 /* AccessibilityUtilities.h */,
+				4A6C67C215B5A1B5008AC774 /* AccessibilityUtilities.m */,
+				4A6C678A15B11BCB008AC774 /* AXAlert.xib */,
+				4A6C676C15B1180E008AC774 /* AXAlertController.h */,
+				4A6C676D15B1180E008AC774 /* AXAlertController.m */,
+			);
+			name = AX;
+			sourceTree = "<group>";
+		};
 		4A96096315B116FE00E4B36F = {
 			isa = PBXGroup;
 			children = (
 				4A6C67BA15B3B232008AC774 /* Todo */,
+				4AC6B2CC161C88A700BA0091 /* Licence */,
+				4AC6B2CE161C890100BA0091 /* Changelog.txt */,
 				4A96097815B116FE00E4B36F /* EasyDrive */,
 				4A96097115B116FE00E4B36F /* Frameworks */,
 				4A96096F15B116FE00E4B36F /* Products */,
@@ -125,6 +205,11 @@
 		4A96097115B116FE00E4B36F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4A1E092B1708E66500B7E16A /* Carbon.framework */,
+				4A1E092416FE33D500B7E16A /* QuartzCore.framework */,
+				4A58E26D16B8ACD900345FF9 /* CoreGraphics.framework */,
+				4A58E26716B8456E00345FF9 /* DiskArbitration.framework */,
+				4AC6B28816122FEA00BA0091 /* Sparkle.framework */,
 				4A96097215B116FE00E4B36F /* Cocoa.framework */,
 				4A96097415B116FE00E4B36F /* Other Frameworks */,
 			);
@@ -150,13 +235,20 @@
 				4A96098715B116FE00E4B36F /* MainMenu.xib */,
 				4A6C676E15B1180E008AC774 /* Core.h */,
 				4A6C676F15B1180E008AC774 /* Core.m */,
+				4A16C3AB16ACA274007D2206 /* Drives Window */,
 				4A6C677015B1180E008AC774 /* Device.h */,
 				4A6C677115B1180E008AC774 /* Device.m */,
 				4A6C677215B1180E008AC774 /* MainController.h */,
 				4A6C677315B1180E008AC774 /* MainController.m */,
+				4AA5FA0316A82A1900553326 /* Notifications.h */,
+				4AA5FA0416A82A1900553326 /* Notifications.m */,
+				4AC6B281161200B200BA0091 /* FSEventsListener.h */,
+				4AC6B282161200B200BA0091 /* FSEventsListener.m */,
+				4A6C67C415B5A1E7008AC774 /* AX */,
 				4A6C678315B11874008AC774 /* Preferences */,
 				4A96097915B116FE00E4B36F /* Supporting Files */,
 				4A6C678715B11B63008AC774 /* Images */,
+				4AC6B28A161233BA00BA0091 /* Resources */,
 			);
 			path = EasyDrive;
 			sourceTree = "<group>";
@@ -174,6 +266,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		4AC6B28A161233BA00BA0091 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4AC6B28B161233E000BA0091 /* dsa_pub.pem */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -184,6 +284,7 @@
 				4A96096A15B116FE00E4B36F /* Sources */,
 				4A96096B15B116FE00E4B36F /* Frameworks */,
 				4A96096C15B116FE00E4B36F /* Resources */,
+				4AC6B2C516123C8C00BA0091 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -200,7 +301,7 @@
 		4A96096515B116FE00E4B36F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0450;
 			};
 			buildConfigurationList = 4A96096815B116FE00E4B36F /* Build configuration list for PBXProject "EasyDrive" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -234,7 +335,11 @@
 				4A6C679415B11E86008AC774 /* Localizable.strings in Resources */,
 				4A6C679715B12272008AC774 /* External.icns in Resources */,
 				4A6C67BB15B3B232008AC774 /* Todo in Resources */,
-				4A6C67BE15B4DACC008AC774 /* EasyDrive-Info.plist in Resources */,
+				4AC6B28C161233E000BA0091 /* dsa_pub.pem in Resources */,
+				4AC6B2CD161C88A700BA0091 /* Licence in Resources */,
+				4AC6B2CF161C890100BA0091 /* Changelog.txt in Resources */,
+				4A16C3AE16ACA2BC007D2206 /* DriveViewPrototype.xib in Resources */,
+				4A16C3B016ACA6EE007D2206 /* Collection.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,6 +350,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AC6B2831612076F00BA0091 /* FSEventsListener.m in Sources */,
 				4A96097F15B116FE00E4B36F /* main.m in Sources */,
 				4A96098615B116FE00E4B36F /* AppDelegate.m in Sources */,
 				4A6C677815B1180E008AC774 /* AXAlertController.m in Sources */,
@@ -253,6 +359,11 @@
 				4A6C677B15B1180E008AC774 /* MainController.m in Sources */,
 				4A6C677C15B1180E008AC774 /* Preferences.m in Sources */,
 				4A6C677D15B1180E008AC774 /* PreferencesController.m in Sources */,
+				4A6C67C315B5A1B5008AC774 /* AccessibilityUtilities.m in Sources */,
+				4AA5FA0516A82A1900553326 /* Notifications.m in Sources */,
+				4AA5FA0E16A8D00700553326 /* DrivesWindow.m in Sources */,
+				4A16C3B316ACAA12007D2206 /* DrivesViewController.m in Sources */,
+				4A58E26C16B84B7400345FF9 /* DriveViewBox.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,7 +451,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
@@ -361,7 +472,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = macosx;
 			};
@@ -371,9 +482,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = EasyDrive/EasyDrive.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/EasyDrive\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EasyDrive/EasyDrive-Prefix.pch";
 				INFOPLIST_FILE = "EasyDrive/EasyDrive-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -383,9 +501,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = EasyDrive/EasyDrive.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/EasyDrive\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EasyDrive/EasyDrive-Prefix.pch";
 				INFOPLIST_FILE = "EasyDrive/EasyDrive-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

@@ -12,4 +12,12 @@
 "Quit"          = "EasyDrive beenden" ;
 "Open"          = "Öffnen";
 "Mount"         = "Aktivieren";
-"Unmount"       = "Auswerfen"; 
+"Unmount"       = "Auswerfen";
+
+"CheckForUpdate" = "Nach Aktualisierungen suchen";
+
+"DeduplicateMessageText" = "Une autre instance d'EasyDrive est déjà en cours d'execusion";
+"DeduplicateInformativeText" = "Cette instance va maintenant s'arrêter";
+
+"CannotEjectMessageText" = "Auswerfen fehlgeschlagen";
+"CannotEjectInformativeText" = "konnte nicht deaktiviert werden.\n\nVergewissern Sie sich, dass alle Programme und Dateien auf dieser Festplatte geschlossen sind";

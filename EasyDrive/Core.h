@@ -7,35 +7,62 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <DiskArbitration/DiskArbitration.h>
 #import "Device.h"
-@interface Core : NSObject 
+#import "FSEventsListener.h"
+#import "Notifications.h"
+
+void unmountCallback(DADiskRef disk, DADissenterRef dissenter, void *context);
+
+@interface Core : NSObject
+<FSEventListenerDelegate>
 {
     NSMutableArray* deviceArray;
+    
+    @private
     NSNotificationCenter* notifCenter;
     NSFileManager* fileManager;
     
-    NSString* pathToUnmount;
     id delegate;
+    Boolean eject;
 }
-
-
 
 @property (readonly) NSMutableArray* deviceArray;
 
+
+// inits methods
 - (void) setDelegate:(id)delegate;
+- (void) postponeDeviceInitWithPath:(NSURL*) path;
+
+
+// core methods
+- (void) unmountDevice: (Device*) device;
+- (void) openDevice:(Device*) device;
+
+
+// callbacks
 - (void) loadMountedDevices;
 - (void) discMounted:(NSNotification *)notification;
 - (void) willUnmount:(NSNotification *)notification;
 - (void) didUnmount:(NSNotification *)notification;
-- (void) postponeDeviceInitWithPath:(NSURL*) path;
-- (Device*) addDeviceWithPath:(NSString*) path;
+
+
+
+
+
+// private ??
+
+- (void) addDevice:(Device*) path;
 - (Device*) removeDeviceWithPath:(NSString*) path;
+- (void) removeDevice:(Device*) device;
+
+
 
 @end
 
-@interface NSObject(CoreMethods)
+@protocol CoreDelegate <NSObject>
+@required
 - (void) updateDockIcon;
-- (void) setMenuNeedsUpdate:(boolean_t) b;
 - (void) addDeviceToMenu:(Device*) device;
 - (void) removeDeviceFromMenu:(Device*) device;
 @end

@@ -7,9 +7,13 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <ApplicationServices/ApplicationServices.h>
+#import <DiskArbitration/DiskArbitration.h>
 #import "PreferencesController.h"
 #import "Core.h"
+#import "DrivesWindow.h"
+#import "AccessibilityUtilities.h"
+#import "DrivesViewController.h"
+#import <Sparkle/SUUpdater.h>
 
 typedef enum {
     left,
@@ -18,54 +22,49 @@ typedef enum {
 } dockposition;
 
 
-@interface MainController : NSObject <NSMenuDelegate> {
+@interface MainController : NSWindow <NSMenuDelegate, CoreDelegate> {
+
+    DrivesWindow * dw;
     PreferencesController* prefCon;
-    
-    NSUserDefaults *userDefaults;
-    NSFileManager* fileManager;
-    
     Core* core;
     
-    NSMenu* _dockMenu, *_contextualDockMenu, *_statusBarMenu;    
+    NSMenu *_dockMenu, *_contextualDockMenu, *_statusBarMenu;
     NSStatusItem* statusItem;
+    NSMutableArray* iconArray;
     
-    bool menuIsOpen;
-    bool doNotOpenMenu;
-    NSMutableArray* iconArray;   
-    
-    dockposition dockPosition;
     appLocation currentAppLocation;
     appLocation previousAppLocation;
     
-    id monitor; //Global monitor when menu is open
+    @private
+    DrivesViewController* viewController;
+    
 }
 
-@property (readwrite) bool   doNotOpenMenu;
+@property (readwrite) bool menuIsOpen;
+@property (readwrite) NSDate* lastDockMenuClose;
 @property (readonly) NSMenu* contextualDockMenu;
 
 - (IBAction) showPreferences:(id)sender;
+- (IBAction) unmountDevice:(id) sender;
+- (IBAction) openDevice:(id) sender;
+- (IBAction) openDiskUtility:(id) sender;
 
 
-- (void) unmountDeviceWithPath:(NSString *) path;
-- (void) openDriveWithPath:(id) sender;
+- (void) checkUpdates;
+
+
 - (void) popUpTheDockMenu;
-- (void) handleGlobalClickAtPoint:(NSPoint) point;
 - (void) updateDockIcon;
-- (void) watchConfigFile:(NSString*) path;
-- (void) readDockPosition;
-- (void) openDiskUtility;
 
 - (void) updateAppLocation;
 - (void) removeStatusBarMenu;
 - (void) addStatusBarmenu;
 
 - (void) removeQuitAboutItems;
-- (void) addQuitAboutItems; 
+- (void) addQuitAboutItems;
 
-//Accessbility API 
-- (BOOL) dockIconIsAt:(CGPoint*) point withSize: (CGSize*) size;
-- (NSArray *)subelementsFromElement:(AXUIElementRef)element forAttribute:(NSString *)attribute;
-- (AXUIElementRef)appDockIconByName:(NSString *)appName;
+@end
 
-
+@interface NSMenuItem (representedWasUpdated)
+    <DeviceDelegate> {}
 @end

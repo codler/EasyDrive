@@ -13,10 +13,25 @@
     @public
     NSString* path;
     NSImage* icon;
+    NSString* name;
+    NSString* previousName;
+    BOOL ejectAvailable;
+    NSMutableArray* delegateArray;
 }
 
 @property (readonly) NSString* path;
 @property (readonly) NSImage* icon;
+@property (readonly) NSString* name;
+@property (readonly) BOOL ejectAvailable;
 
--(id) initWithPath:(NSString*) s;
+
+-(id) initWithPath:(NSString*) s;  
+-(void) setNewPath: (NSString*) newPath;
+-(void) addDelegate:(id) delegate;
+@end
+
+
+@protocol DeviceDelegate <NSObject>
+@required
+-(void) deviceWasUpdated;
 @end

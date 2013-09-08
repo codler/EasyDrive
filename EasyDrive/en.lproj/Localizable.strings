@@ -13,3 +13,17 @@
 "Open"          = "Open";
 "Mount"         = "Mount";
 "Unmount"       = "Eject"; 
+
+"DeduplicateMessageText" = "Une autre instance d'EasyDrive est déjà en cours d'execusion"; 
+"DeduplicateInformativeText" = "Cette instance va maintenant s'arrêter";
+
+"CannotEjectMessageText" = "Eject failed";
+"CannotEjectInformativeText" = "could not be unmounted.\n\nMake sure that all applications and files are closed on this disk.";
+
+"CheckForUpdate" = "Check for updates";
+
+
+"Connection"    = "Plugged in";
+"Connected"     = "has been connected";
+"Ejection"  = "Ejection";
+"Ejected"   = "has been ejected";

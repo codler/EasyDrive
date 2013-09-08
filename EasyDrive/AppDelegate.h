@@ -15,4 +15,6 @@
     IBOutlet MainController* mainController;
 }
 
+- (void)deduplicateRunningInstances;
+
 @end
