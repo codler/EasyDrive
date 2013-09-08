@@ -26,6 +26,7 @@
 		4A6C679715B12272008AC774 /* External.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4A6C679615B12272008AC774 /* External.icns */; };
 		4A6C67BB15B3B232008AC774 /* Todo in Resources */ = {isa = PBXBuildFile; fileRef = 4A6C67BA15B3B232008AC774 /* Todo */; };
 		4A6C67C315B5A1B5008AC774 /* AccessibilityUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C67C215B5A1B5008AC774 /* AccessibilityUtilities.m */; };
+		4A6C7FE217DD2C20003E0D0C /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 4A6C7FE117DD2C20003E0D0C /* README.md */; };
 		4A96097315B116FE00E4B36F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A96097215B116FE00E4B36F /* Cocoa.framework */; };
 		4A96097D15B116FE00E4B36F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A96097B15B116FE00E4B36F /* InfoPlist.strings */; };
 		4A96097F15B116FE00E4B36F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A96097E15B116FE00E4B36F /* main.m */; };
@@ -38,8 +39,7 @@
 		4AC6B28916122FEA00BA0091 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AC6B28816122FEA00BA0091 /* Sparkle.framework */; };
 		4AC6B28C161233E000BA0091 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 4AC6B28B161233E000BA0091 /* dsa_pub.pem */; };
 		4AC6B2C616123CD700BA0091 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4AC6B28816122FEA00BA0091 /* Sparkle.framework */; };
-		4AC6B2CD161C88A700BA0091 /* Licence in Resources */ = {isa = PBXBuildFile; fileRef = 4AC6B2CC161C88A700BA0091 /* Licence */; };
-		4AC6B2CF161C890100BA0091 /* Changelog.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4AC6B2CE161C890100BA0091 /* Changelog.txt */; };
+		4AC6B2CF161C890100BA0091 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 4AC6B2CE161C890100BA0091 /* CHANGELOG.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -94,6 +94,7 @@
 		4A6C67C015B503EE008AC774 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/AXAlert.xib; sourceTree = "<group>"; };
 		4A6C67C115B5A1B5008AC774 /* AccessibilityUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccessibilityUtilities.h; sourceTree = "<group>"; };
 		4A6C67C215B5A1B5008AC774 /* AccessibilityUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccessibilityUtilities.m; sourceTree = "<group>"; };
+		4A6C7FE117DD2C20003E0D0C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		4A96096E15B116FE00E4B36F /* EasyDrive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyDrive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A96097215B116FE00E4B36F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		4A96097515B116FE00E4B36F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -115,8 +116,7 @@
 		4AC6B282161200B200BA0091 /* FSEventsListener.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FSEventsListener.m; sourceTree = "<group>"; };
 		4AC6B28816122FEA00BA0091 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = EasyDrive/Sparkle.framework; sourceTree = "<group>"; };
 		4AC6B28B161233E000BA0091 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
-		4AC6B2CC161C88A700BA0091 /* Licence */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Licence; sourceTree = "<group>"; };
-		4AC6B2CE161C890100BA0091 /* Changelog.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Changelog.txt; sourceTree = "<group>"; };
+		4AC6B2CE161C890100BA0091 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CHANGELOG.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,8 +186,8 @@
 			isa = PBXGroup;
 			children = (
 				4A6C67BA15B3B232008AC774 /* Todo */,
-				4AC6B2CC161C88A700BA0091 /* Licence */,
-				4AC6B2CE161C890100BA0091 /* Changelog.txt */,
+				4A6C7FE117DD2C20003E0D0C /* README.md */,
+				4AC6B2CE161C890100BA0091 /* CHANGELOG.md */,
 				4A96097815B116FE00E4B36F /* EasyDrive */,
 				4A96097115B116FE00E4B36F /* Frameworks */,
 				4A96096F15B116FE00E4B36F /* Products */,
@@ -336,10 +336,10 @@
 				4A6C679715B12272008AC774 /* External.icns in Resources */,
 				4A6C67BB15B3B232008AC774 /* Todo in Resources */,
 				4AC6B28C161233E000BA0091 /* dsa_pub.pem in Resources */,
-				4AC6B2CD161C88A700BA0091 /* Licence in Resources */,
-				4AC6B2CF161C890100BA0091 /* Changelog.txt in Resources */,
+				4AC6B2CF161C890100BA0091 /* CHANGELOG.md in Resources */,
 				4A16C3AE16ACA2BC007D2206 /* DriveViewPrototype.xib in Resources */,
 				4A16C3B016ACA6EE007D2206 /* Collection.xib in Resources */,
+				4A6C7FE217DD2C20003E0D0C /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
