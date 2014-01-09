@@ -37,7 +37,7 @@
                           object:[NSWorkspace sharedWorkspace]];
         deviceArray = [[NSMutableArray alloc] init];
         
-        eject= false;
+        eject= true;
         
         NSLog(@"init core ended");
     }
