@@ -184,23 +184,47 @@ BOOL drawsRoundCornerBesideArrow=YES;
 
 -(void)enableBlurForWindow:(NSWindow *)window
 {
-    //!!!! Uses private API - from http://blog.steventroughtonsmith.com/2008/03/using-core-image-filters-onunder.html
+    //!! Uses Private API.
     
-    CGSConnection thisConnection;
-    uint32_t compositingFilter;
-    int compositingType = 1; // Under the window
-    
-    /* Make a new connection to CoreGraphics */
-    CGSNewConnection(NULL, &thisConnection);
-    
-    /* Create a CoreImage filter and set it up */
-    CGSNewCIFilterByName(thisConnection, (CFStringRef)@"CIGaussianBlur", &compositingFilter);
-    NSDictionary *options = [NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:2.0] forKey:@"inputRadius"];
-    CGSSetCIFilterValuesFromDictionary(thisConnection, compositingFilter, (__bridge CFDictionaryRef)options);
-    
-    /* Now apply the filter to the window */
-    CGSAddWindowFilter(thisConnection, [window windowNumber], compositingFilter, compositingType);
-}
+    if (floor(NSAppKitVersionNumber) <= NSAppKitVersionNumber10_8) {
+        // 10.8 and below :  http://blog.steventroughtonsmith.com/2008/03/using-core-image-filters-onunder.html
+        
+        //Definition for non documented methods
+        typedef long CGSWindow;
+        typedef void *CGSWindowFilterRef;
+        
+        extern CGError CGSNewCIFilterByName(CGSConnection cid, CFStringRef filterName, CGSWindowFilterRef *outFilter);
+        extern CGError CGSSetCIFilterValuesFromDictionary(CGSConnection cid, CGSWindowFilterRef filter, CFDictionaryRef filterValues);
+        extern OSStatus CGSAddWindowFilter( CGSConnection cid, CGSWindow wid, void * fid, int value );
+
+        CGSConnection thisConnection;
+        CGSWindowFilterRef compositingFilter;
+        int compositingType = 1; // Under the window
+        
+        /* Make a new connection to CoreGraphics */
+        CGSNewConnection(NULL, &thisConnection);
+        
+        /* Create a CoreImage filter and set it up */
+        CGSNewCIFilterByName(thisConnection, (CFStringRef)@"CIGaussianBlur", &compositingFilter);
+        NSDictionary *options = [NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:2.0] forKey:@"inputRadius"];
+        CGSSetCIFilterValuesFromDictionary(thisConnection, compositingFilter, (__bridge CFDictionaryRef)options);
+        
+        /* Now apply the filter to the window */
+        CGSAddWindowFilter(thisConnection, [window windowNumber], compositingFilter, compositingType);
+        
+    } else {
+        //Since Mavericks : http://stackoverflow.com/questions/19575642/how-to-use-cifilter-on-nswindow-in-osx-10-9-mavericks
+        
+        typedef void * CGSConnection;
+        extern OSStatus CGSSetWindowBackgroundBlurRadius(CGSConnection connection, NSInteger   windowNumber, int radius);
+        extern CGSConnection CGSDefaultConnectionForThread();
+        
+        [window setOpaque:NO];
+        
+        CGSConnection connection = CGSDefaultConnectionForThread();
+        CGSSetWindowBackgroundBlurRadius(connection, [window windowNumber], 5.0);
+    }
+ }
 
 - (void)_updateBackground
 {
