@@ -14,13 +14,11 @@
 
 void unmountCallback(DADiskRef disk, DADissenterRef dissenter, void *context);
 
-@interface Core : NSObject
-<FSEventListenerDelegate>
+@interface Core : NSObject <FSEventListenerDelegate>
 {
     NSMutableArray* deviceArray;
     
     @private
-    NSNotificationCenter* notifCenter;
     NSFileManager* fileManager;
     
     id delegate;
@@ -42,20 +40,6 @@ void unmountCallback(DADiskRef disk, DADissenterRef dissenter, void *context);
 
 // callbacks
 - (void) loadMountedDevices;
-- (void) discMounted:(NSNotification *)notification;
-- (void) willUnmount:(NSNotification *)notification;
-- (void) didUnmount:(NSNotification *)notification;
-
-
-
-
-
-// private ??
-
-- (void) addDevice:(Device*) path;
-- (Device*) removeDeviceWithPath:(NSString*) path;
-- (void) removeDevice:(Device*) device;
-
 
 
 @end

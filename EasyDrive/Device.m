@@ -3,7 +3,7 @@
 //  DrivesOnDock
 //
 //  Created by Matthieu Riegler on 22/05/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2013 Kyro. All rights reserved.
 //
 
 #import "Device.h"
@@ -43,6 +43,24 @@
         [NSException raise: NSUndefinedKeyException format:nil];
         return nil;
     }
+}
+
+/*
+ * Devices are considered equals if the represent the same path
+ */
+- (BOOL)isEqual:(id)other {
+    //NSLog(@"%@", ([other path]));
+    if (other == self)
+        return YES;
+    if (![super isEqual:other])
+        return NO;
+    return [[self path] isEqualToString:[other path]];
+}
+
+- (NSUInteger)hash {
+    NSUInteger hash = 0;
+    hash += [[self path] hash];
+    return hash;
 }
 
 

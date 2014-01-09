@@ -72,7 +72,6 @@ BOOL drawsRoundCornerBesideArrow=YES;
  
         [self setFrame:contentRect display:YES];
         
-        //_DWBackgroundColor = [NSColor colorWithCalibratedRed:0.f green:0.0f blue:0.0f alpha:7.f];
         _DWBackgroundColor = [NSColor colorWithCalibratedHue:0.0f saturation:0.0f brightness:0.0f alpha:0.7f];
         
         borderColor = [NSColor colorWithCalibratedHue:1.0f saturation:0.0f brightness:0.7f alpha:0.6f];
@@ -107,6 +106,7 @@ BOOL drawsRoundCornerBesideArrow=YES;
 
 - (void)windowDidResignKey:(NSNotification *)notification{
     //Always closing the window when losing focus
+    //[self close];
     [self orderOut:nil];
 }
 
@@ -181,7 +181,6 @@ BOOL drawsRoundCornerBesideArrow=YES;
     [self setFrame:contentRect display:NO];
     [_view setFrame:_viewFrame];
 }
-
 
 -(void)enableBlurForWindow:(NSWindow *)window
 {

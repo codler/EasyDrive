@@ -63,13 +63,15 @@
 
 
 
--(void) sendPluggedInNotification:(NSString*) deviceName {
+-(void) sendPluggedInNotification:(Device*) device {
     if(userNotifCenter) { // if on 10.8
         NSUserNotification *notif = [[NSUserNotification alloc] init];
 
         [notif setTitle: NSLocalizedString(@"Connection", @"")];
-        [notif setSubtitle: [NSString stringWithFormat:@"%@ %@", deviceName, NSLocalizedString(@"Connected",@"")]];
+        [notif setSubtitle: [NSString stringWithFormat:@"%@ %@", device.name, NSLocalizedString(@"Connected",@"")]];
+        notif.contentImage = device.icon;
         //[notif setInformativeText: @"Informative Text"];
+        
         [userNotifCenter deliverNotification:notif];
     } else {
         [NSApp requestUserAttention:NSInformationalRequest]; //simple notification
@@ -77,12 +79,13 @@
 }
 
 
--(void) sendPluggedOutNotification:(NSString*) deviceName {
+-(void) sendPluggedOutNotification:(Device*) device {
     if(userNotifCenter) { // if on 10.8
         NSUserNotification *notif = [[NSUserNotification alloc] init];
         
         [notif setTitle: NSLocalizedString(@"Ejection", @"")];
-        [notif setSubtitle: [NSString stringWithFormat:@"%@ %@", deviceName, NSLocalizedString(@"Ejected",@"")]];
+        [notif setSubtitle: [NSString stringWithFormat:@"%@ %@", device.name, NSLocalizedString(@"Ejected",@"")]];
+        notif.contentImage = device.icon;
         //[notif setInformativeText: @"Informative Text"];
         [userNotifCenter deliverNotification:notif];
     } else {

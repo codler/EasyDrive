@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Preferences.h"
+#import "Device.h"
 
 @interface Notifications : NSObject<NSUserNotificationCenterDelegate>{
     NSUserNotificationCenter* userNotifCenter;
@@ -17,7 +18,7 @@
 
 
 +(id) getInstance;
--(void) sendPluggedInNotification:(NSString*) deviceName;
--(void) sendPluggedOutNotification:(NSString*) deviceName;
+-(void) sendPluggedInNotification:(Device*) deviceName;
+-(void) sendPluggedOutNotification:(Device*) deviceName;
 
 @end

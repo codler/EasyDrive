@@ -19,7 +19,7 @@
     
     IBOutlet NSTextField* name;
     IBOutlet NSImageView* icon;
-    IBOutlet NSCollectionViewItem *item;
+    //IBOutlet NSCollectionViewItem *item;
     
     @public
     IBOutlet NSView* ejectBox;

@@ -15,6 +15,8 @@ Access and unmount your drives from the dock & the status bar !
 - Available for OS X 10.7 and above
 
 ## Documentation 
+Note: As this app uses the Accessibility API, it's not compatible with Sandboxing. 
+
 ### [Changelog](https://github.com/kyro38/EasyDrive/blob/master/CHANGELOG.md)
 
 

@@ -13,6 +13,8 @@
     
 }
 
++ (BOOL) isAxApiEnabled;
+
 + (BOOL) dockIconIsAt:(CGPoint*) point withSize: (CGSize*) size;
 + (NSArray *)subelementsFromElement:(AXUIElementRef)element forAttribute:(NSString *)attribute;
 + (AXUIElementRef)appDockIconByName:(NSString *)appName;

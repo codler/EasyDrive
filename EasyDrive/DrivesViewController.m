@@ -38,7 +38,6 @@
     return YES;
 }
 
-
 - (void) updateWindow {    
     //on recupère le modèle sous jacent
     //On calcule la largeur max des items

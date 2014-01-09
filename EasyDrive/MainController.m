@@ -6,23 +6,20 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import <QuartzCore/QuartzCore.h>
 #import "MainController.h"
 
 @implementation MainController
 
-@synthesize menuIsOpen=_menuIsOpen;
 @synthesize contextualDockMenu=_contextualDockMenu;
-@synthesize lastDockMenuClose=_lastDockMenuClose;
-
 
 -(id) init {
     self = [super init]; 
     if (self) {
-        NSLog(@"init mainController");
         //Prefs
         NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
         [Preferences checkPreferencesIntegrity];
+        
+        //watch for app location change in the preferences
         [userDefaults addObserver:self forKeyPath:kAppInDock options:NSKeyValueObservingOptionNew context:NULL];
         [userDefaults addObserver:self forKeyPath:kAppInStatusBar options:NSKeyValueObservingOptionNew context:NULL];
 
@@ -31,11 +28,9 @@
         
         ///////  UI INIT
         
-        _dockMenu = [[NSMenu alloc] init];
-        [_dockMenu setDelegate:self];
-        
         //Contextual Dock menu
         _contextualDockMenu = [[NSMenu alloc] init];
+        
         [_contextualDockMenu addItem:[NSMenuItem separatorItem]];
         NSMenuItem* item = [_contextualDockMenu addItemWithTitle:NSLocalizedString(@"Preferences",@"") action:@selector(showPreferences:) keyEquivalent:@""];
         item.target=self;
@@ -55,7 +50,7 @@
         [core setDelegate:self];
         [core performSelectorOnMainThread:@selector(loadMountedDevices) withObject:nil waitUntilDone:NO];
         
-        _lastDockMenuClose = [NSDate date];
+        //_lastDockMenuClose = [NSDate date];
         
         currentAppLocation = [Preferences appLocation];
         [self updateAppLocation];
@@ -68,6 +63,7 @@
     return self;
 }
 
+//Draws the new dock icon when drives are add or removed
 - (void) updateDockIcon {
     [iconArray removeAllObjects];
     @synchronized(core.deviceArray) {
@@ -156,7 +152,7 @@
             [icon5 drawAtPoint:NSMakePoint(half,0) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
             [icon3 drawAtPoint:NSMakePoint(half/2,half/2) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
             break;
-        case 6:
+        case 6: default:
             [icon1 setSize:halfSize]; [icon2 setSize:halfSize];
             [icon3 setSize:halfSize]; [icon4 setSize:halfSize];
             [icon5 setSize:halfSize]; [icon6 setSize:halfSize];
@@ -184,42 +180,6 @@
     }
 }
 
-- (void) updateAppLocation{
-    if ([dw isVisible]) {
-        //closing the window if changing the dock position while it's open.
-        [dw orderOut:nil];
-    }
-    
-    
-    appLocation newAppLocation = [Preferences appLocation];
-    
-    if((previousAppLocation == dock || previousAppLocation == bothPositions )
-        && newAppLocation == statusbar) {
-        //Only the status bar is visible therefore adding pref/about/quit items
-        
-        ProcessSerialNumber psn = { 0, kCurrentProcess };
-        TransformProcessType(&psn, kProcessTransformToUIElementApplication); //remove from dock
-        [self addStatusBarmenu];        
-        [self addQuitAboutItems];
-    } else if (previousAppLocation == dock && newAppLocation == bothPositions) {
-        [self addStatusBarmenu]; //add to status bar
-    } else if (previousAppLocation == statusbar && newAppLocation == dock) {
-        ProcessSerialNumber psn = { 0, kCurrentProcess };
-        TransformProcessType(&psn, kProcessTransformToForegroundApplication); //app visible in the dock
-        [self removeQuitAboutItems];  //remove the pref/about/items from the menu
-        [self removeStatusBarMenu];
-        [self updateDockIcon];
-    } else if (previousAppLocation == statusbar && newAppLocation == bothPositions) {
-        ProcessSerialNumber psn = { 0, kCurrentProcess };
-        TransformProcessType(&psn, kProcessTransformToForegroundApplication);
-        [self removeQuitAboutItems];  //remove quit & about item
-        [self updateDockIcon];
-    } else if (previousAppLocation == bothPositions && newAppLocation == dock) {
-        [self removeStatusBarMenu];        
-    }
-    previousAppLocation=newAppLocation;
-}
-
 
 //Add the menu to the status bar
 - (void) addStatusBarmenu {
@@ -244,7 +204,7 @@
     }
 }
 
-
+//Watch for app location preference change
 - (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
                          change:(NSDictionary *)change
                         context:(void *)context {
@@ -257,20 +217,48 @@
     }
 }
 
-#pragma mark Menu methods 
 
-//Delegate methods used to know if clicking on dock icon
-- (void) menuWillOpen:(NSMenu *)menu {
-    _menuIsOpen=true;
+- (void) updateAppLocation{
+    if ([dw isVisible]) {
+        //closing the window if changing the dock position while it's open.
+        [dw orderOut:nil];
+    }
+    
+    appLocation newAppLocation = [Preferences appLocation];
+    
+    if((previousAppLocation == dock || previousAppLocation == bothPositions )
+       && newAppLocation == statusbar) {
+        //Only the status bar is visible therefore adding pref/about/quit items
+        
+        ProcessSerialNumber psn = { 0, kCurrentProcess };
+        TransformProcessType(&psn, kProcessTransformToUIElementApplication); //remove from dock
+        [self addStatusBarmenu];
+        [self addQuitAboutItems];
+    } else if (previousAppLocation == dock && newAppLocation == bothPositions) {
+        [self addStatusBarmenu]; //add to status bar
+    } else if (previousAppLocation == statusbar && newAppLocation == dock) {
+        ProcessSerialNumber psn = { 0, kCurrentProcess };
+        TransformProcessType(&psn, kProcessTransformToForegroundApplication); //app visible in the dock
+        [self removeQuitAboutItems];  //remove the pref/about/items from the menu
+        [self removeStatusBarMenu];
+        [self updateDockIcon];
+    } else if (previousAppLocation == statusbar && newAppLocation == bothPositions) {
+        ProcessSerialNumber psn = { 0, kCurrentProcess };
+        TransformProcessType(&psn, kProcessTransformToForegroundApplication);
+        [self removeQuitAboutItems];  //remove quit & about item
+        [self updateDockIcon];
+    } else if (previousAppLocation == bothPositions && newAppLocation == dock) {
+        [self removeStatusBarMenu];
+    }
+    previousAppLocation=newAppLocation;
 }
 
-- (void) menuDidClose:(NSMenu *)menu {
-    _menuIsOpen=false;
-    _lastDockMenuClose= [NSDate date];
-    [NSApp hide:self];
-}
 
 
+#pragma mark Menu methods
+
+
+//Displays the DrivesWindow next to the dock if it's not open else it closes the window
 - (void) popUpTheDockMenu {
     CGPoint iconPos;  CGSize iconSize;
     if(![AccessibilityUtilities dockIconIsAt:&iconPos withSize:&iconSize]) {
@@ -300,7 +288,7 @@
     if(! [dw isVisible]) {
         dw = [[DrivesWindow alloc] initWithView:[viewController view] attachedToPoint:pos];
         
-        //To set the arrow position
+        //To set the arrow position of the drive window
         if(dockPosition == left) {
             [dw setLeft];
         } else if (dockPosition == right) {
@@ -308,6 +296,7 @@
         } else if (dockPosition == bottom) {
             [dw setBottom];
         }
+        
         
         for(int i=0;i<[[viewController.arrayController arrangedObjects] count]; i++) {
             DriveViewBoxController* dvb = (DriveViewBoxController*) [viewController.collectionView itemAtIndex:i];
@@ -404,8 +393,6 @@
     [_statusBarMenu removeItemAtIndex:[[_statusBarMenu itemArray] count]-1]; // quit
 }
 
-
-
 // Adding Preference, Update, About & Quit items to the Status Bar menu
 // Used when only the status bar menu is visible
 - (void) addQuitAboutItems {
@@ -426,24 +413,23 @@
     [item setTarget:NSApp];
 }
 
-- (void) checkUpdates {
-    [[[SUUpdater alloc] init] checkForUpdates:nil];
-}
 
 
 
 #pragma mark Menu Commands
-//MenuItem commands 
+//Unmount the drive
 - (IBAction) unmountDevice:(id) sender {
     Device* device = [sender representedObject];
     [core performSelectorOnMainThread:@selector(unmountDevice:) withObject:device waitUntilDone:NO];
 }
 
+//Open the drive in the finder
 - (IBAction) openDevice:(id) sender {
     [core openDevice:[sender representedObject]];
     
 }
 
+//Open the preference window.
 - (IBAction)showPreferences:(id)sender {
     if(!prefCon) {
         prefCon = [[PreferencesController alloc] init];
@@ -451,26 +437,33 @@
     [prefCon showPreferences];
 }
 
+//Opens the disk utility app
 - (IBAction) openDiskUtility:(id) sender {
     NSWorkspace* ws = [NSWorkspace sharedWorkspace];
     [ws launchApplication:@"Disk Utility"];
-    AXUIElementRef _systemWideElement;
-    AXUIElementRef _focusedApp;
-    CFTypeRef _focusedWindow;
-    _systemWideElement = AXUIElementCreateSystemWide();
-    AXUIElementCopyAttributeValue(_systemWideElement,
-                                  (CFStringRef)kAXFocusedApplicationAttribute,(CFTypeRef*)&_focusedApp);
-    AXUIElementCopyAttributeValue((AXUIElementRef)_focusedApp,
-                                  (CFStringRef)NSAccessibilityFocusedWindowAttribute,(CFTypeRef*)&_focusedWindow);
+    
+//    AXUIElementRef _systemWideElement;
+//    AXUIElementRef _focusedApp;
+//    CFTypeRef _focusedWindow;
+//    _systemWideElement = AXUIElementCreateSystemWide();
+//    AXUIElementCopyAttributeValue(_systemWideElement,
+//                                  (CFStringRef)kAXFocusedApplicationAttribute,(CFTypeRef*)&_focusedApp);
+//    AXUIElementCopyAttributeValue((AXUIElementRef)_focusedApp,
+//                                  (CFStringRef)NSAccessibilityFocusedWindowAttribute,(CFTypeRef*)&_focusedWindow);
+}
+
+//Checking for updates using the Sparkle framework
+- (IBAction) checkUpdates {
+    [[[SUUpdater alloc] init] checkForUpdates:nil];
 }
 
 @end
 
 
-@implementation NSMenuItem (represented)
--(void) deviceWasUpdated {
-    NSLog(@"device was updated");
-    Device* device = (Device*) self.representedObject;
-    [self setTitle:device.name];
-}
-@end
+//@implementation NSMenuItem (represented)
+//-(void) deviceWasUpdated {
+//    NSLog(@"device was updated");
+//    Device* device = (Device*) self.representedObject;
+//    [self setTitle:device.name];
+//}
+//@end

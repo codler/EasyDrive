@@ -55,7 +55,7 @@
                                   (CFStringRef)NSAccessibilityFocusedWindowAttribute,(CFTypeRef*)&_focusedWindow);
 }
 
-- (IBAction) continue :(id)sender {
+- (IBAction) continue:(id)sender {
     NSLog(@"continue");
     [self close];
 }

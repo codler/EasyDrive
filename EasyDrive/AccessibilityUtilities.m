@@ -10,15 +10,37 @@
 
 @implementation AccessibilityUtilities
 
++ (BOOL) isAxApiEnabled {
+    
+    // AXAPIEnabled() is deprecated in 10.9
+    if (floor(NSAppKitVersionNumber) <= NSAppKitVersionNumber10_8) {
+        /* On a 10.8.x or earlier system */
+        if(! AXAPIEnabled()) {
+            AXAlertController* ax = [[AXAlertController alloc] init];
+            [ax showAlert];
+            return false;
+        } else {
+            return true;
+        }
+    } else {
+        /* 10.9 or later system */
+        NSDictionary *options = @{(__bridge id)kAXTrustedCheckOptionPrompt: @YES};
+        BOOL accessibilityEnabled = AXIsProcessTrustedWithOptions((__bridge CFDictionaryRef)options);
+        return accessibilityEnabled;
+    }
+}
+
 + (NSArray *)subelementsFromElement:(AXUIElementRef)element forAttribute:(NSString *)attribute{
     CFArrayRef subElementsCFArray = nil;
     CFIndex count = 0;
     AXError result;
     
+
     result = AXUIElementGetAttributeValueCount(element, (__bridge CFStringRef)attribute, &count);
-    if (result != kAXErrorSuccess) return nil;
+    if (result != kAXErrorSuccess) return nil; //returns nil on failure
+    
     result = AXUIElementCopyAttributeValues(element, (__bridge CFStringRef)attribute, 0, count, (CFArrayRef *) &subElementsCFArray);
-    if (result != kAXErrorSuccess) return nil;
+    if (result != kAXErrorSuccess) return nil; //returns nil on failure
     NSArray *subElements = (__bridge NSArray *)subElementsCFArray;
     return subElements;
 }
@@ -31,6 +53,7 @@
     if (appElement != NULL)
     {
         AXUIElementRef firstChild = (__bridge AXUIElementRef)[[self subelementsFromElement:appElement forAttribute:@"AXChildren"] objectAtIndex:0];
+        
         NSArray *children = [self subelementsFromElement:firstChild forAttribute:@"AXChildren"];
         NSEnumerator *e = [children objectEnumerator];
         AXUIElementRef axElement;
@@ -57,7 +80,7 @@
 
 + (BOOL) dockIconIsAt:(CGPoint*) iconPos withSize: (CGSize*) iconSize  {
     //Check if AX API enabled 
-    if (! AXAPIEnabled()) {
+    if (! AXAPIEnabled() && NSAppKitVersionNumber <= NSAppKitVersionNumber10_8) {
         AXAlertController* ax = [[AXAlertController alloc] init];
         [ax showAlert];  
         
@@ -76,18 +99,19 @@
         if (result == kAXErrorSuccess)
         {
             if (AXValueGetValue(value, kAXValueCGSizeType, iconSize)) {
-                //NSLog(@"taille: (%f, %f)", iconSize.width,iconSize.height);
+                //NSLog(@"taille: (%f, %f)", iconSize->width,iconSize->height);
             }
         }
         result = AXUIElementCopyAttributeValue(dockIcon, kAXPositionAttribute, &value);
         if (result == kAXErrorSuccess)
         {
             if (AXValueGetValue(value, kAXValueCGPointType, iconPos)) {
-                //NSLog(@"position: (%f, %f)", iconPos.x,iconPos.y);
+                //NSLog(@"position: (%f, %f)", iconPos->x,iconPos->y);
             }
         }
+        return true;
     }
-    return true;
+    return false;
 }
 
 @end

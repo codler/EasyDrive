@@ -10,8 +10,11 @@
 
 @implementation DriveViewBox
 
-- (void)awakeFromNib{
+- (void) awakeFromNib{
+    //each element initialized with the system eject icon
     [ejectIcon setImage:[[NSWorkspace sharedWorkspace] iconForFileType:NSFileTypeForHFSTypeCode(kEjectMediaIcon)]];
+    
+    //For devices that can't be ejected like "/"
     if(! ejectIcon.isEnabled) {
         [ejectIcon setAlphaValue:0.2f];
     }
@@ -46,7 +49,11 @@
     [self addTrackingArea:ejectTrackingArea];
 }
 
-- (void)mouseEntered:(NSEvent *)theEvent {
+- (void)viewDidHide {
+    NSLog(@"alala");
+}
+
+- (void) mouseEntered:(NSEvent *)theEvent {
     if([theEvent trackingArea] == driveTrackingArea) {
         //Entering the drive area
         overLabel = true;
@@ -61,7 +68,7 @@
     [self needsDisplay];
 }
 
-- (void)mouseExited:(NSEvent *)theEvent {
+- (void) mouseExited:(NSEvent *)theEvent {
     if([theEvent trackingArea] == driveTrackingArea) {
        //Leaving the drive area
         overLabel = false;
@@ -75,11 +82,11 @@
     [self needsDisplay];
 }
 
--(void)mouseDown:(NSEvent *)theEvent {
+- (void) mouseDown:(NSEvent *)theEvent {
     //blank override to disable superclass behaviour
 }
 
-- (void)mouseUp:(NSEvent *)theEvent{
+- (void) mouseUp:(NSEvent *)theEvent{
     //Finding which box is below the cursor
     NSArray* subviews = [[self superview] subviews];
     for (DriveViewBox* subview in subviews) {
@@ -93,7 +100,7 @@
     
 }
 
--(void) clickOnBox {
+- (void) clickOnBox {
     if(overEject && !ejectIcon.isEnabled){
         return; //when clicking on disabled eject
     }
@@ -109,7 +116,7 @@
     } 
 }
 
--(void) drawRect: (NSRect)dirtyRect{
+- (void) drawRect: (NSRect)dirtyRect{
     //drawing the gradient background on the current Item
     if(overLabel) {
         [NSGraphicsContext saveGraphicsState];
@@ -138,17 +145,17 @@
     } 
 }
 
--(void) blinkItemOnce:(NSNumber*) b {
+- (void) blinkItemOnce:(NSNumber*) b {
     overLabel = [b boolValue];
     [self setNeedsDisplayInRect:self.bounds];
     [self setNeedsDisplay:YES];
 }
 
--(void) setTarget: (id)t {
+- (void) setTarget: (id)t {
     target = t;
 }
 
--(void) openDevice {
+- (void) openDevice {
     overEject =false;
     overLabel = false;
     [self setNeedsDisplayInRect:self.bounds];
@@ -156,7 +163,7 @@
     [NSApp sendAction:@selector(openDevice:) to:target from:self];
 }
 
--(void) unmountDevice {
+- (void) unmountDevice {
     overEject =false;
     overLabel = false;
     [self setNeedsDisplayInRect:self.bounds];

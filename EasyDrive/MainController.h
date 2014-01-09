@@ -22,13 +22,13 @@ typedef enum {
 } dockposition;
 
 
-@interface MainController : NSWindow <NSMenuDelegate, CoreDelegate> {
+@interface MainController : NSObject <CoreDelegate> {
 
     DrivesWindow * dw;
     PreferencesController* prefCon;
     Core* core;
     
-    NSMenu *_dockMenu, *_contextualDockMenu, *_statusBarMenu;
+    NSMenu *_contextualDockMenu, *_statusBarMenu;
     NSStatusItem* statusItem;
     NSMutableArray* iconArray;
     
@@ -40,17 +40,13 @@ typedef enum {
     
 }
 
-@property (readwrite) bool menuIsOpen;
-@property (readwrite) NSDate* lastDockMenuClose;
 @property (readonly) NSMenu* contextualDockMenu;
 
 - (IBAction) showPreferences:(id)sender;
 - (IBAction) unmountDevice:(id) sender;
 - (IBAction) openDevice:(id) sender;
 - (IBAction) openDiskUtility:(id) sender;
-
-
-- (void) checkUpdates;
+- (IBAction) checkUpdates;
 
 
 - (void) popUpTheDockMenu;
@@ -65,6 +61,6 @@ typedef enum {
 
 @end
 
-@interface NSMenuItem (representedWasUpdated)
-    <DeviceDelegate> {}
-@end
+//@interface NSMenuItem (representedWasUpdated)
+//    <DeviceDelegate> {}
+//@end
